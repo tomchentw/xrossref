@@ -101,8 +101,17 @@ var serverConfig = {
   },
   target: "node",
   externals: [
-    "react", /* use the same library as node runtime */
+    /* use the same library as node runtime */
+    "bluebird",
+    "debug",
+    "fixed-data-table",
+    "isomorphic-fetch",
+    "material-ui",
+    "react",
     "react/addons",
+    "react-tap-event-plugin",
+    "rx",
+    "rx-react",
   ],
   module: {
     loaders: [

@@ -35,7 +35,9 @@ class ReactRootContainer extends React.Component {
     this.themeManager.setPalette({
       accent1Color: Colors.deepOrange500
     });
+  }
 
+  componentDidMount () {
     const {currentUrl} = this.childContext.routeStore;
     currentUrl.subscribe((url) => {
       location.hash = url;
