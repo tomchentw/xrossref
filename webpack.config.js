@@ -101,6 +101,8 @@ var serverConfig = {
   },
   target: "node",
   externals: [
+    "atob",
+    "btoa",
     /* use the same library as node runtime */
     "bluebird",
     "debug",
@@ -130,6 +132,10 @@ var serverConfig = {
   },
   plugins: [
     isomorphicReactPlugin.serverPlugin,
+    new webpack.ProvidePlugin({
+      "atob": "atob",
+      "btoa": "btoa",
+    }),
   ],
 };
 
