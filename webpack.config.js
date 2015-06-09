@@ -37,6 +37,13 @@ var clientConfig = {
         exclude: /node_modules/,
         loaders: [BABEL_LOADER],
       },
+      {
+        test: /\.css$/,
+        loaders: [
+          "style-loader",
+          "css-loader?root=../",
+        ],
+      },
     ],
   },
   plugins: [

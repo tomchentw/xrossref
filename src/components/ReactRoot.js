@@ -1,5 +1,8 @@
 import {default as React, PropTypes} from "react";
 import {Styles, AppBar, TextField} from "material-ui";
+import {Table, Column} from "fixed-data-table";
+
+require("fixed-data-table/dist/fixed-data-table.css");
 
 const {ThemeManager, Colors} = Styles;
 
@@ -10,7 +13,7 @@ class ReactRoot extends React.Component {
     this.themeManager = new ThemeManager();
 
     this.state = {
-      searchTerm: "facebook/react, angular/angular",
+      searchTerm: "facebook/react, angular/angular.js",
     };
     this.handleTextFieldChanged = this.handleTextFieldChanged.bind(this);
     this.handleEnterKeyDown = this.handleEnterKeyDown.bind(this);
@@ -30,7 +33,7 @@ class ReactRoot extends React.Component {
 
   static get propTypes () {
     return {
-      onSearchEnterKeyDown: PropTypes.fn,
+      onSearchEnterKeyDown: PropTypes.func.isRequired,
     };
   }
 
@@ -52,6 +55,8 @@ class ReactRoot extends React.Component {
 
   render () {
     const {props, state} = this;
+    const {repos} = props;
+    const rowGetter = (rowIndex) => repos[rowIndex];
 
     return (
       <div id="react-root">
@@ -63,6 +68,34 @@ class ReactRoot extends React.Component {
           onChange={this.handleTextFieldChanged}
           onEnterKeyDown={this.handleEnterKeyDown}
           floatingLabelText="Compare several repos with ," />
+        <Table
+          rowHeight={50}
+          rowGetter={rowGetter}
+          rowsCount={repos.length}
+          width={1000}
+          height={600}
+          headerHeight={50}>
+          <Column
+            label="Name"
+            width={100}
+            dataKey="name"
+          />
+          <Column
+            label="Stars"
+            width={60}
+            dataKey="stargazers_count"
+          />
+          <Column
+            label="Forks"
+            width={60}
+            dataKey="forks_count"
+          />
+          <Column
+            label="Open Issues"
+            width={60}
+            dataKey="open_issues"
+          />
+        </Table>
       </div>
     );
   }
