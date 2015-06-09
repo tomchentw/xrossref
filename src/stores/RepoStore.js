@@ -12,12 +12,12 @@ export default class RepoStore {
     this.repos =  new Rx.BehaviorSubject([]);
 
     Rx.Observable.merge(
-      this.applySearchAll()
+      this.handleSearchAll()
     )
       .subscribe(this.repos);
   }
 
-  applySearchAll () {
+  handleSearchAll () {
     return this.updates
       .filter(({action}) => RepoConstants.searchAll === action)
       .flatMap(({payload}) => {
