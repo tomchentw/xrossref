@@ -1,18 +1,21 @@
 const debug = require("debug")("createStores");
+import {default as Rx} from "rx";
+
 import * as RepoActions from "./actions/RepoActions";
 import * as RouteActions from "./actions/RouteActions";
 import {default as RepoStore} from "./stores/RepoStore";
 import {default as RouteStore} from "./stores/RouteStore";
 
 export default function createStores () {
-  const repoStore = new RepoStore();
-  const routeStore = new RouteStore();
+  const updates = new Rx.Subject();
 
-  RepoActions.register(repoStore.updates);
-  RouteActions.register(routeStore.updates);
+  RepoActions.register(updates);
+  RouteActions.register(updates);
 
-  return {
-    repoStore,
-    routeStore,
-  };
+  const storesMap = {};
+
+  storesMap.repoStore = new RepoStore(updates, storesMap);
+  storesMap.routeStore = new RouteStore(updates, storesMap);
+
+  return storesMap;
 }

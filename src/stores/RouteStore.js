@@ -7,8 +7,9 @@ export default class RouteStore {
   // our store expose 2 streams :
   // `updates`: that should receive actions to be applied on our list of currentUrl
   // `currentUrl`: an observable that will contains our up to date list of currentUrl
-  constructor (currentUrl) {
-    this.updates = new Rx.Subject();
+  constructor (updates, storesMap, currentUrl) {
+    this.updates = updates;
+    this.storesMap = storesMap;
     this.currentUrl = new Rx.BehaviorSubject(currentUrl);
 
     Rx.Observable.merge(...[
