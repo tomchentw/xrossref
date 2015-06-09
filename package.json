@@ -4,6 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "clean": "rm -rf ./public/index.html ./public/assets ./public/tmp",
+    "build_client": "npm run clean && webpack -p",
+    "build": "npm run clean && webpack -d",
+    "dev": "npm run clean && webpack-dev-server -d"
   },
   "repository": {
     "type": "git",
@@ -18,5 +22,21 @@
   "bugs": {
     "url": "https://github.com/tomchentw/xrossref/issues"
   },
-  "homepage": "https://github.com/tomchentw/xrossref#readme"
+  "homepage": "https://github.com/tomchentw/xrossref#readme",
+  "devDependencies": {
+    "babel": "^5.5.6",
+    "babel-core": "^5.5.6",
+    "babel-eslint": "^3.1.14",
+    "babel-loader": "^5.1.4",
+    "eslint": "^0.22.1",
+    "isomorphic-react-plugin-factory": "^1.0.1",
+    "node-libs-browser": "^0.5.2",
+    "react-hot-loader": "^1.2.7",
+    "webpack": "^1.9.10",
+    "webpack-dev-server": "^1.9.0"
+  },
+  "dependencies": {
+    "node-libs-browser": "^0.5.2",
+    "react": "^0.13.3"
+  }
 }
