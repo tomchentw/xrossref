@@ -37,10 +37,26 @@ var clientConfig = {
         exclude: /node_modules/,
         loaders: [BABEL_LOADER],
       },
+      {
+        test: /\.css$/,
+        loaders: [
+          "style-loader",
+          "css-loader?root=../",
+        ],
+      },
+      {
+        test: /\.(otf|eot|svg|ttf|woff|woff2)(\?.+)?$/,
+        loaders: [
+          "url-loader?limit=8192",
+        ],
+      }
     ],
   },
   plugins: [
     isomorphicReactPlugin.clientPlugin,
+    new webpack.ProvidePlugin({
+      "Promise": "bluebird",
+    }),
   ],
 };
 

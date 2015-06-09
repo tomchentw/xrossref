@@ -1,5 +1,7 @@
 import {default as React} from "react";
 
-import {default as ReactRoot} from "./ReactRoot";
-
-export default ReactRoot;
+export default class EmptyComponent extends React.Component {
+  render () {
+    return null;
+  }
+}
