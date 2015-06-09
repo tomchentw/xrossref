@@ -111,6 +111,12 @@ var serverConfig = {
         exclude: /node_modules/,
         loader: BABEL_LOADER,
       },
+      {
+        test: /\.css$/,
+        loaders: [
+          "null-loader",
+        ],
+      },
     ],
   },
   plugins: [
