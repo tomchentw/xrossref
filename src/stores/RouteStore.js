@@ -15,6 +15,7 @@ export default class RouteStore {
 
     Rx.Observable.merge(...[
       this.handleSearchAll(),
+      this.hanlleRemoveOne(),
       this.handleChangeUrl(),
     ])
       .subscribe(this.currentUrl);
@@ -23,9 +24,19 @@ export default class RouteStore {
   handleSearchAll () {
     return this.updates
       .filter(({action}) => RepoConstants.searchAll === action)
-      .map(({payload: {terms}}) => {
-        return btoa(terms);
-      });
+      .map(({payload: {terms}}) => terms)
+      .map(btoa);
+  }
+
+  hanlleRemoveOne () {
+    return this.updates
+      .filter(({action}) => RepoConstants.removeOne === action)
+      .flatMap(() => {
+        return this.storesMap.repoStore.repos.take(1).map((repos) => {
+          return repos.map(repo => repo.full_name).join(", ");
+        });
+      })
+      .map(btoa);
   }
 
   handleChangeUrl () {
