@@ -22,6 +22,7 @@ class ReactRootContainer extends React.Component {
     return {
       muiTheme: PropTypes.object,
       repoStore: PropTypes.object,
+      routeStore: PropTypes.object,
     };
   }
 
