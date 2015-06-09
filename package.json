@@ -1,0 +1,22 @@
+{
+  "name": "xrossref",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tomchentw/xrossref.git"
+  },
+  "author": {
+    "name": "tomchentw",
+    "email": "developer@tomchentw.com",
+    "url": "https://github.com/tomchentw"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tomchentw/xrossref/issues"
+  },
+  "homepage": "https://github.com/tomchentw/xrossref#readme"
+}
