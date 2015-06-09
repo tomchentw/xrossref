@@ -1,8 +1,7 @@
 import {default as React, PropTypes} from "react";
 import {Styles, AppBar, TextField} from "material-ui";
-import {Table, Column} from "fixed-data-table";
 
-require("fixed-data-table/dist/fixed-data-table.css");
+import {default as ReposTable} from "./ReposTable";
 
 const {ThemeManager, Colors} = Styles;
 
@@ -55,8 +54,6 @@ class ReactRoot extends React.Component {
 
   render () {
     const {props, state} = this;
-    const {repos} = props;
-    const rowGetter = (rowIndex) => repos[rowIndex];
 
     return (
       <div id="react-root">
@@ -68,34 +65,7 @@ class ReactRoot extends React.Component {
           onChange={this.handleTextFieldChanged}
           onEnterKeyDown={this.handleEnterKeyDown}
           floatingLabelText="Compare several repos with ," />
-        <Table
-          rowHeight={50}
-          rowGetter={rowGetter}
-          rowsCount={repos.length}
-          width={1000}
-          height={600}
-          headerHeight={50}>
-          <Column
-            label="Name"
-            width={100}
-            dataKey="name"
-          />
-          <Column
-            label="Stars"
-            width={60}
-            dataKey="stargazers_count"
-          />
-          <Column
-            label="Forks"
-            width={60}
-            dataKey="forks_count"
-          />
-          <Column
-            label="Open Issues"
-            width={60}
-            dataKey="open_issues"
-          />
-        </Table>
+        <ReposTable repos={props.repos} />
       </div>
     );
   }
