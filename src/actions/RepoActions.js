@@ -1,6 +1,8 @@
 import {default as Rx} from "rx";
 import {default as fetch} from "isomorphic-fetch";
 
+import {default as RepoConstants} from "../constants/RepoConstants";
+
 export const searchAll = new Rx.Subject();
 
 /**
@@ -12,7 +14,12 @@ export function register (updates) {
   searchAll.flatMap((terms="") => {
     return Rx.Observable.from(terms.split(",")).flatMap((ownerRepoStr) => {
       return fetch(`https://api.github.com/repos/${ ownerRepoStr }`)
-        .then(res => res.json());
+        .then(res => {
+          return {
+            action: RepoConstants,searchAll,
+            payload: res.json(),
+          };
+        });
     });
   }).subscribe(updates);
 }
