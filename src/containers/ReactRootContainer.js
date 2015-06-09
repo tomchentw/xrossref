@@ -8,6 +8,7 @@ import {default as ReposTableContainer} from "./ReposTableContainer";
 import {default as SearchFieldContainer} from "./SearchFieldContainer";
 
 import {default as createStores} from "../createStores";
+import {searchAll} from "../actions/RepoActions";
 
 class ReactRootContainer extends React.Component {
 
@@ -34,9 +35,15 @@ class ReactRootContainer extends React.Component {
     this.themeManager.setPalette({
       accent1Color: Colors.deepOrange500
     });
-    this.childContext.routeStore.currentUrl.subscribe((url) => {
+
+    const {currentUrl} = this.childContext.routeStore;
+    currentUrl.subscribe((url) => {
       location.hash = url;
     });
+    currentUrl
+      .take(1)
+      .map(atob)
+      .subscribe(searchAll);
   }
 
   render () {
