@@ -1,5 +1,5 @@
 import {default as React} from "react";
-import {Styles, AppBar} from "material-ui";
+import {Styles, AppBar, TextField} from "material-ui";
 
 const {ThemeManager, Colors} = Styles;
 
@@ -34,6 +34,11 @@ class ReactRoot extends React.Component {
     return (
       <div id="react-root">
         <AppBar title="Xrossref" iconClassNameRight="muidocs-icon-navigation-expand-more" />
+        <TextField
+          style={{width: 400}}
+          hintText="Enter GitHub repo (with author's name)"
+          defaultValue="facebook/react, angular/angular"
+          floatingLabelText="Compare several repos with ," />
       </div>
     );
   }
