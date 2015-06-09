@@ -11,9 +11,10 @@ export default class RepoStore {
     this.updates = new Rx.Subject();
     this.repos =  new Rx.BehaviorSubject([]);
 
-    Rx.Observable.merge(
-      this.handleSearchAll()
-    )
+    Rx.Observable.merge(...[
+      this.handleSearchAll(),
+      this.hanlleRemoveOne(),
+    ])
       .subscribe(this.repos);
   }
 
@@ -21,8 +22,24 @@ export default class RepoStore {
     return this.updates
       .filter(({action}) => RepoConstants.searchAll === action)
       .flatMap(({payload}) => {
-        return this.repos.take(1).map((repos) => {
+        return this.repos.take(1).map(repos => {
           return payload;
+        });
+      });
+  }
+
+  hanlleRemoveOne () {
+    return this.updates
+      .filter(({action}) => RepoConstants.removeOne === action)
+      .flatMap(({payload: {id}}) => {
+        return this.repos.take(1).map(repos => {
+          for (let i = 0; i < repos.length; i++) {
+            if (id === repos[i].id) {
+              repos.splice(i, 1);
+              return repos;
+            }
+          }
+          return repos;
         });
       });
   }
