@@ -19,6 +19,10 @@ export default class RepoStore {
     return this.updates
       .filter(({action}) => RepoConstants.searchAll === action)
       .scan([], (repos, {payload}) => {
+        const added = repos.some((repo) => repo.id === payload.id);
+        if (added) {
+          return repos;
+        }
         return repos.concat(payload);
       });
   }
