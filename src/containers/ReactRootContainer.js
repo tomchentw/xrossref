@@ -3,19 +3,18 @@ import {default as React} from "react";
 
 import {default as ReactRoot} from "../components/ReactRoot";
 
+import {default as createStores} from "../createStores";
 import * as RepoActions from "../actions/RepoActions";
 
 class ReactRootContainer extends React.Component {
 
   constructor(...args) {
     super(...args);
-    this.state = {
-      repos: [],
-    };
+    this.state = createStores();
   }
 
   componentWillMount () {
-    this.props.repoStore.repos.subscribe((repos) => {
+    this.state.repoStore.repos.subscribe((repos) => {
       this.setState({
         repos,
       });
@@ -26,7 +25,7 @@ class ReactRootContainer extends React.Component {
     const {props, state} = this;
 
     return (
-      <ReactRoot {...props}
+      <ReactRoot
         onSearchEnterKeyDown={RepoActions.searchAll}
         repos={state.repos}
       />
