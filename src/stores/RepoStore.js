@@ -9,15 +9,21 @@ export default class RepoStore {
   // `repos`: an observable that will contains our up to date list of repos
   constructor() {
     this.updates = new Rx.Subject();
-    this.repos = new Rx.BehaviorSubject([]);
+    this.repos =  new Rx.BehaviorSubject([]);
 
-    this.applySearchAll();
+    Rx.Observable.merge(
+      this.applySearchAll()
+    )
+      .subscribe(this.repos);
   }
 
   applySearchAll () {
     return this.updates
       .filter(({action}) => RepoConstants.searchAll === action)
-      .map(({payload}) => payload)
-      .subscribe(this.repos);
+      .flatMap(({payload}) => {
+        return this.repos.take(1).map((repos) => {
+          return payload;
+        });
+      });
   }
 }
