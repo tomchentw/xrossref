@@ -3,13 +3,10 @@ import {Styles, AppBar, TextField} from "material-ui";
 
 import {default as ReposTable} from "./ReposTable";
 
-const {ThemeManager, Colors} = Styles;
-
 class ReactRoot extends React.Component {
 
   constructor(...args) {
     super(...args);
-    this.themeManager = new ThemeManager();
 
     this.state = {
       searchTerm: "facebook/react, angular/angular.js",
@@ -18,28 +15,10 @@ class ReactRoot extends React.Component {
     this.handleEnterKeyDown = this.handleEnterKeyDown.bind(this);
   }
 
-  static get childContextTypes () {
-    return {
-      muiTheme: PropTypes.object
-    };
-  }
-
-  getChildContext () {
-    return {
-      muiTheme: this.themeManager.getCurrentTheme()
-    };
-  }
-
   static get propTypes () {
     return {
       onSearchEnterKeyDown: PropTypes.func.isRequired,
     };
-  }
-
-  componentWillMount () {
-    this.themeManager.setPalette({
-      accent1Color: Colors.deepOrange500
-    });
   }
 
   handleTextFieldChanged (e) {

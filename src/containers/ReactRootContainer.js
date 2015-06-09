@@ -1,5 +1,7 @@
 const debug = require("debug")("ReactRootContainer");
-import {default as React} from "react";
+import {default as React, PropTypes} from "react";
+import {Styles, AppBar, TextField} from "material-ui";
+const {ThemeManager, Colors} = Styles;
 
 import {default as ReactRoot} from "../components/ReactRoot";
 
@@ -10,11 +12,27 @@ class ReactRootContainer extends React.Component {
 
   constructor(...args) {
     super(...args);
-    this.state = createStores();
+    this.themeManager = new ThemeManager();
+    this.childContext = createStores();
+    this.childContext.muiTheme = this.themeManager.getCurrentTheme();
+  }
+
+  static get childContextTypes () {
+    return {
+      muiTheme: PropTypes.object,
+      repoStore: PropTypes.object,
+    };
+  }
+
+  getChildContext () {
+    return this.childContext;
   }
 
   componentWillMount () {
-    this.state.repoStore.repos.subscribe((repos) => {
+    this.themeManager.setPalette({
+      accent1Color: Colors.deepOrange500
+    });
+    this.childContext.repoStore.repos.subscribe((repos) => {
       this.setState({
         repos,
       });
