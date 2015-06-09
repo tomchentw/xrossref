@@ -21,6 +21,7 @@ class ReactHtml extends React.Component {
       <html>
         <head>
           <title>React Google Maps | tomchentw</title>
+          <link href="http://fonts.googleapis.com/css?family=Roboto:400,300,500" rel="stylesheet" type="text/css" />
           {this._render_link_to_stylesheet_(clientAssets)}
         </head>
         <body>

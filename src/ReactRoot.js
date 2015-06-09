@@ -1,11 +1,31 @@
 import {default as React} from "react";
+import {Styles, AppBar} from "material-ui";
+
+const {ThemeManager, Colors} = Styles;
 
 class ReactRoot extends React.Component {
 
-  constructor (...args) {
+  constructor(...args) {
     super(...args);
-    this.state = {
+    this.themeManager = new ThemeManager();
+  }
+
+  static get childContextTypes () {
+    return {
+      muiTheme: React.PropTypes.object
     };
+  }
+
+  getChildContext () {
+    return {
+      muiTheme: this.themeManager.getCurrentTheme()
+    };
+  }
+
+  componentWillMount () {
+    this.themeManager.setPalette({
+      accent1Color: Colors.deepOrange500
+    });
   }
 
   render () {
@@ -13,7 +33,7 @@ class ReactRoot extends React.Component {
 
     return (
       <div id="react-root">
-        REACT_ROOT!
+        <AppBar title="Xrossref" iconClassNameRight="muidocs-icon-navigation-expand-more" />
       </div>
     );
   }
