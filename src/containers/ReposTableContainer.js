@@ -27,7 +27,10 @@ class ReposTableContainer extends React.Component {
     const {props, state} = this;
 
     return (
-      <ReposTable repos={state.repos} />
+      <ReposTable
+        repos={state.repos}
+        onRepoRemove={removeOne}
+      />
     );
   }
 }

@@ -44,6 +44,12 @@ var clientConfig = {
           "css-loader?root=../",
         ],
       },
+      {
+        test: /\.(otf|eot|svg|ttf|woff|woff2)(\?.+)?$/,
+        loaders: [
+          "url-loader?limit=8192",
+        ],
+      }
     ],
   },
   plugins: [

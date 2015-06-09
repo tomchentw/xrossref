@@ -18,4 +18,4 @@ React.render((
   document.getElementById("react-container")
 );
 
-Debug.enable("RepoActions,RepoStore,ReactRootContainer,createStores");
+Debug.enable("ReposTable");
