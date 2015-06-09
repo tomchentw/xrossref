@@ -1,12 +1,13 @@
 const debug = require("debug")("ReactRootContainer");
 import {default as React, PropTypes} from "react";
-import {Styles, AppBar, TextField} from "material-ui";
+import {Styles} from "material-ui";
 const {ThemeManager, Colors} = Styles;
 
 import {default as ReactRoot} from "../components/ReactRoot";
+import {default as ReposTableContainer} from "./ReposTableContainer";
+import {default as SearchFieldContainer} from "./SearchFieldContainer";
 
 import {default as createStores} from "../createStores";
-import * as RepoActions from "../actions/RepoActions";
 
 class ReactRootContainer extends React.Component {
 
@@ -32,21 +33,16 @@ class ReactRootContainer extends React.Component {
     this.themeManager.setPalette({
       accent1Color: Colors.deepOrange500
     });
-    this.childContext.repoStore.repos.subscribe((repos) => {
-      this.setState({
-        repos,
-      });
-    });
   }
 
   render () {
     const {props, state} = this;
 
     return (
-      <ReactRoot
-        onSearchEnterKeyDown={RepoActions.searchAll}
-        repos={state.repos}
-      />
+      <ReactRoot>
+        <SearchFieldContainer />
+        <ReposTableContainer />
+      </ReactRoot>
     );
   }
 }

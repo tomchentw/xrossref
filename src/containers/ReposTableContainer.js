@@ -5,6 +5,12 @@ import {removeOne} from "../actions/RepoActions";
 
 class ReposTableContainer extends React.Component {
 
+  static get contextTypes () {
+    return {
+      repoStore: PropTypes.object,
+    };
+  }
+
   constructor(...args) {
     super(...args);
   }

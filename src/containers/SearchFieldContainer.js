@@ -5,12 +5,22 @@ import {searchAll} from "../actions/RepoActions";
 
 class SearchFieldContainer extends React.Component {
 
+  static get contextTypes () {
+    return {
+      muiTheme: PropTypes.object,
+      repoStore: PropTypes.object,
+    };
+  }
+
+  static get defaultProps () {
+    return {
+      searchTerm: "facebook/react, angular/angular.js",
+    };
+  }
+
   constructor(...args) {
     super(...args);
 
-    this.state = {
-      searchTerm: "facebook/react, angular/angular.js",
-    };
     this.handleEnterKeyDown = this.handleEnterKeyDown.bind(this);
   }
 
@@ -26,7 +36,7 @@ class SearchFieldContainer extends React.Component {
         ref="searchField"
         style={{width: 400}}
         hintText="Enter GitHub repo (with author's name)"
-        value={state.searchTerm}
+        defaultValue={props.searchTerm}
         onEnterKeyDown={this.handleEnterKeyDown}
         floatingLabelText="Compare several repos with ," />
     );
