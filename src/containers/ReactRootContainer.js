@@ -1,21 +1,35 @@
+const debug = require("debug")("ReactRootContainer");
 import {default as React} from "react";
 
 import {default as ReactRoot} from "../components/ReactRoot";
-import {default as createStores} from "./createStores";
 
+import * as RepoActions from "../actions/RepoActions";
 
 class ReactRootContainer extends React.Component {
 
   constructor(...args) {
-    args[0] = createStores();
     super(...args);
+    this.state = {
+      repos: [],
+    };
+  }
+
+  componentWillMount () {
+    this.props.repoStore.repos.subscribe((repos) => {
+      this.setState({
+        repos,
+      });
+    });
   }
 
   render () {
     const {props, state} = this;
 
     return (
-      <ReactRoot {...props} />
+      <ReactRoot {...props}
+        onSearchEnterKeyDown={RepoActions.searchAll}
+        repos={state.repos}
+      />
     );
   }
 }

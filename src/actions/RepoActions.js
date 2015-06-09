@@ -1,9 +1,10 @@
-import {default as Rx} from "rx";
+const debug = require("debug")("RepoActions");
+import {FuncSubject} from "rx-react";
 import {default as fetch} from "isomorphic-fetch";
 
 import {default as RepoConstants} from "../constants/RepoConstants";
 
-export const searchAll = new Rx.Subject();
+export const searchAll = FuncSubject.create();
 
 /**
  * Register our actions against an updates stream
@@ -13,13 +14,15 @@ export const searchAll = new Rx.Subject();
 export function register (updates) {
   searchAll.flatMap((terms="") => {
     return Rx.Observable.from(terms.split(",")).flatMap((ownerRepoStr) => {
-      return fetch(`https://api.github.com/repos/${ ownerRepoStr }`)
-        .then(res => {
+      return fetch(`https://api.github.com/repos/${ ownerRepoStr.trim() }`)
+        .then(res => res.json())
+        .then(data => {
           return {
-            action: RepoConstants,searchAll,
-            payload: res.json(),
+            action: RepoConstants.searchAll,
+            payload: data,
           };
         });
     });
-  }).subscribe(updates);
+  })
+    .subscribe(updates);
 }
