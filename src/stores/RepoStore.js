@@ -5,21 +5,19 @@ import {default as RepoConstants} from "../constants/RepoConstants";
 
 export default class RepoStore {
   // our store expose 2 streams :
-  // `updates`: that should receive operations to be applied on our list of todo
-  // `repos`: an observable that will contains our up to date list of todo
+  // `updates`: that should receive actions to be applied on our list of repos
+  // `repos`: an observable that will contains our up to date list of repos
   constructor() {
-    this.updates = new Rx.BehaviorSubject([]);
+    this.updates = new Rx.Subject();
+    this.repos = new Rx.BehaviorSubject([]);
 
-    this.repos = Rx.Observable.merge(
-      this.applySearchAll(),
-    );
+    this.applySearchAll();
   }
 
   applySearchAll () {
     return this.updates
       .filter(({action}) => RepoConstants.searchAll === action)
-      .scan([], (repos, {payload}) => {
-        return payload;
-      });
+      .map(({payload}) => payload)
+      .subscribe(this.repos);
   }
 }
