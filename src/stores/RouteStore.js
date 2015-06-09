@@ -1,6 +1,7 @@
 const debug = require("debug")("RouteStore");
 import {default as Rx} from "rx";
 
+import {default as RepoConstants} from "../constants/RepoConstants";
 import {default as RouteConstants} from "../constants/RouteConstants";
 
 export default class RouteStore {
@@ -13,9 +14,18 @@ export default class RouteStore {
     this.currentUrl = new Rx.BehaviorSubject(currentUrl);
 
     Rx.Observable.merge(...[
+      this.handleSearchAll(),
       this.handleChangeUrl(),
     ])
       .subscribe(this.currentUrl);
+  }
+
+  handleSearchAll () {
+    return this.updates
+      .filter(({action}) => RepoConstants.searchAll === action)
+      .map(({payload: {terms}}) => {
+        return btoa(terms);
+      });
   }
 
   handleChangeUrl () {
