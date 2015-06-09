@@ -13,15 +13,16 @@ export const searchAll = FuncSubject.create();
  */
 export function register (updates) {
   searchAll.flatMap((terms="") => {
-    return Rx.Observable.from(terms.split(",")).flatMap((ownerRepoStr) => {
-      return fetch(`https://api.github.com/repos/${ ownerRepoStr.trim() }`)
-        .then(res => res.json())
-        .then(data => {
-          return {
-            action: RepoConstants.searchAll,
-            payload: data,
-          };
-        });
+    return Promise.all(
+      terms.split(",").map(ownerRepoStr => {
+        return fetch(`https://api.github.com/repos/${ ownerRepoStr.trim() }`)
+          .then(res => res.json());
+      })
+    ).then(repos => {
+      return {
+        action: RepoConstants.searchAll,
+        payload: repos,
+      };
     });
   })
     .subscribe(updates);

@@ -48,6 +48,9 @@ var clientConfig = {
   },
   plugins: [
     isomorphicReactPlugin.clientPlugin,
+    new webpack.ProvidePlugin({
+      "Promise": "bluebird",
+    }),
   ],
 };
 
