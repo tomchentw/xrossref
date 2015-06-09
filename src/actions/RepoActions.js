@@ -10,17 +10,27 @@ export const removeOne = FuncSubject.create();
 
 function applySearchAll () {
   return searchAll.flatMap((terms="") => {
-    return Promise.all(
+    const searchAllPms = Promise.resolve({
+      action: RepoConstants.searchAll,
+      payload: {terms},
+    });
+
+    const searchAllSuccessPms = Promise.all(
       terms.split(",").map(ownerRepoStr => {
         return fetch(`https://api.github.com/repos/${ ownerRepoStr.trim() }`)
           .then(res => res.json());
       })
     ).then(repos => {
       return {
-        action: RepoConstants.searchAll,
+        action: RepoConstants.searchAllSuccess,
         payload: repos,
       };
     });
+
+    return Rx.Observable.merge(...[
+      Rx.Observable.fromPromise(searchAllPms),
+      Rx.Observable.fromPromise(searchAllSuccessPms),
+    ]);
   })
 }
 
