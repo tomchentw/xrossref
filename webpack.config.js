@@ -5,6 +5,7 @@
 var Path = require("path");
 var webpack = require("webpack");
 
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var IsomorphicReactPluginFactory = require("isomorphic-react-plugin-factory");
     
 var outputPath = Path.resolve(__dirname, "./public");
@@ -39,10 +40,9 @@ var clientConfig = {
       },
       {
         test: /\.css$/,
-        loaders: [
-          "style-loader",
-          "css-loader?root=../",
-        ],
+        loader: ExtractTextPlugin.extract("style-loader", "css-loader", {
+          publicPath: "",
+        }),
       },
       {
         test: /\.(otf|eot|svg|ttf|woff|woff2)(\?.+)?$/,
@@ -54,8 +54,12 @@ var clientConfig = {
   },
   plugins: [
     isomorphicReactPlugin.clientPlugin,
+    new ExtractTextPlugin("[name].css", {
+      disable: IS_DEVELOPMENT,
+    }),
     new webpack.ProvidePlugin({
       "Promise": "bluebird",
+      "fetch": "isomorphic-fetch",
     }),
   ],
 };
@@ -135,6 +139,8 @@ var serverConfig = {
     new webpack.ProvidePlugin({
       "atob": "atob",
       "btoa": "btoa",
+      "Promise": "bluebird",
+      "fetch": "isomorphic-fetch",
     }),
   ],
 };

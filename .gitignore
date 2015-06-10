@@ -38,3 +38,8 @@ node_modules
 
 
 ### Project ###
+public/assets
+public/tmp
+public/index.html
+public/*.gz
+

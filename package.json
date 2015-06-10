@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "clean": "rm -rf ./public/index.html ./public/assets ./public/tmp",
-    "build_client": "npm run clean && webpack -p",
-    "build": "npm run clean && webpack -d",
+    "build_client": "npm run build",
+    "build": "npm run clean && NODE_ENV=production webpack -p",
     "dev": "npm run clean && webpack-dev-server -d"
   },
   "repository": {
@@ -32,11 +32,13 @@
     "btoa": "^1.1.2",
     "css-loader": "^0.14.4",
     "eslint": "^0.22.1",
+    "extract-text-webpack-plugin": "^0.8.1",
     "file-loader": "^0.8.4",
     "isomorphic-react-plugin-factory": "^1.0.1",
     "null-loader": "^0.1.1",
     "react-hot-loader": "^1.2.7",
     "style-loader": "^0.12.3",
+    "tomchentw-npm-dev": "^1.2.2",
     "url-loader": "^0.5.6",
     "webpack": "^1.9.10",
     "webpack-dev-server": "^1.9.0"
