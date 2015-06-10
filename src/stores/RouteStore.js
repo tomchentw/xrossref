@@ -12,8 +12,10 @@ export default class RouteStore {
     this.updates = updates;
     this.storesMap = storesMap;
     this.currentUrl = new Rx.BehaviorSubject(currentUrl);
+  }
 
-    Rx.Observable.merge(...[
+  register () {
+    return Rx.Observable.merge(...[
       this.handleSearchAll(),
       this.hanlleRemoveOne(),
       this.handleChangeUrl(),

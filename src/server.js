@@ -1,5 +1,5 @@
 import {default as React} from "react";
 
-import {default as ReactRootContainer} from "./containers/ReactRootContainer";
+import {default as Flux} from "./Flux";
 
-export default ReactRootContainer;
+export default Flux;

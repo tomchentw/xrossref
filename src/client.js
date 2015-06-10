@@ -4,7 +4,7 @@ const debug = Debug("client");
 import {default as React} from "react";
 import {default as injectTapEventPlugin} from "react-tap-event-plugin";
 
-import {default as ReactRootContainer} from "./containers/ReactRootContainer";
+import {default as Flux} from "./Flux";
 
 //Needed for onTouchTap
 //Can go away when react 1.0 release
@@ -13,7 +13,7 @@ import {default as ReactRootContainer} from "./containers/ReactRootContainer";
 injectTapEventPlugin();
 
 React.render((
-  <ReactRootContainer />
+  <Flux />
 ),
   document.getElementById("react-container")
 );

@@ -1,12 +1,12 @@
 import {default as React, PropTypes} from "react";
 
 import {default as ReposTable} from "../components/ReposTable";
-import {removeOne} from "../actions/RepoActions";
 
 class ReposTableContainer extends React.Component {
 
   static get contextTypes () {
     return {
+      repoActions: PropTypes.object,
       repoStore: PropTypes.object,
     };
   }
@@ -29,7 +29,7 @@ class ReposTableContainer extends React.Component {
     return (
       <ReposTable
         repos={state.repos}
-        onRepoRemove={removeOne}
+        onRepoRemove={this.context.repoActions.removeOne}
       />
     );
   }

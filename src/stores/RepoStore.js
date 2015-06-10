@@ -11,8 +11,10 @@ export default class RepoStore {
     this.updates = updates;
     this.storesMap = storesMap;
     this.repos =  new Rx.BehaviorSubject([]);
+  }
 
-    Rx.Observable.merge(...[
+  register () {
+    return Rx.Observable.merge(...[
       this.handleSearchAllSuccess(),
       this.hanlleRemoveOne(),
     ])
