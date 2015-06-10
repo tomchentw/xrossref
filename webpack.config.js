@@ -52,6 +52,9 @@ var clientConfig = {
   },
   plugins: [
     isomorphicReactPlugin.clientPlugin,
+    new ExtractTextPlugin("[name].css", {
+      disable: IS_DEVELOPMENT,
+    }),
     new webpack.ProvidePlugin({
       "Promise": "bluebird",
     }),
@@ -82,7 +85,6 @@ if (IS_DEVELOPMENT) {
   clientConfig.output.path = Path.resolve(outputPath, "./" + clientConfig.output.publicPath);
 
   clientConfig.plugins.push(
-    new ExtractTextPlugin("[name].css"),
     new webpack.optimize.DedupePlugin()
   );
 }
