@@ -1,38 +1,34 @@
 const debug = require("debug")("ReactRootContainer");
 import {default as React, PropTypes} from "react";
-import {Styles} from "material-ui";
-const {ThemeManager, Colors} = Styles;
 
 import {default as ReactRoot} from "../components/ReactRoot";
 import {default as ReposTableContainer} from "./ReposTableContainer";
 import {default as SearchFieldContainer} from "./SearchFieldContainer";
 
-import {default as createStores} from "../createStores";
-
 class ReactRootContainer extends React.Component {
 
-  constructor(...args) {
-    super(...args);
-    this.themeManager = new ThemeManager();
-    this.childContext = createStores();
-    this.childContext.muiTheme = this.themeManager.getCurrentTheme();
-  }
-
-  static get childContextTypes () {
+  static get contextTypes () {
     return {
-      muiTheme: PropTypes.object,
+      repoActions: PropTypes.object,
       repoStore: PropTypes.object,
+      routeStore: PropTypes.object,
+      muiTheme: PropTypes.object,
     };
   }
 
-  getChildContext () {
-    return this.childContext;
+  constructor(...args) {
+    super(...args);
   }
 
-  componentWillMount () {
-    this.themeManager.setPalette({
-      accent1Color: Colors.deepOrange500
+  componentDidMount () {
+    const {currentUrl} = this.context.routeStore;
+    currentUrl.subscribe((url) => {
+      location.hash = url;
     });
+    currentUrl
+      .take(1)
+      .map(atob)
+      .subscribe(this.context.repoActions.searchAll);
   }
 
   render () {

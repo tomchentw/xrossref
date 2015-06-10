@@ -101,8 +101,19 @@ var serverConfig = {
   },
   target: "node",
   externals: [
-    "react", /* use the same library as node runtime */
+    "atob",
+    "btoa",
+    /* use the same library as node runtime */
+    "bluebird",
+    "debug",
+    "fixed-data-table",
+    "isomorphic-fetch",
+    "material-ui",
+    "react",
     "react/addons",
+    "react-tap-event-plugin",
+    "rx",
+    "rx-react",
   ],
   module: {
     loaders: [
@@ -111,10 +122,20 @@ var serverConfig = {
         exclude: /node_modules/,
         loader: BABEL_LOADER,
       },
+      {
+        test: /\.css$/,
+        loaders: [
+          "null-loader",
+        ],
+      },
     ],
   },
   plugins: [
     isomorphicReactPlugin.serverPlugin,
+    new webpack.ProvidePlugin({
+      "atob": "atob",
+      "btoa": "btoa",
+    }),
   ],
 };
 

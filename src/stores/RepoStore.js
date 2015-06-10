@@ -7,20 +7,23 @@ export default class RepoStore {
   // our store expose 2 streams :
   // `updates`: that should receive actions to be applied on our list of repos
   // `repos`: an observable that will contains our up to date list of repos
-  constructor() {
-    this.updates = new Rx.Subject();
+  constructor (updates, storesMap) {
+    this.updates = updates;
+    this.storesMap = storesMap;
     this.repos =  new Rx.BehaviorSubject([]);
+  }
 
-    Rx.Observable.merge(...[
-      this.handleSearchAll(),
+  register () {
+    return Rx.Observable.merge(...[
+      this.handleSearchAllSuccess(),
       this.hanlleRemoveOne(),
     ])
       .subscribe(this.repos);
   }
 
-  handleSearchAll () {
+  handleSearchAllSuccess () {
     return this.updates
-      .filter(({action}) => RepoConstants.searchAll === action)
+      .filter(({action}) => RepoConstants.searchAllSuccess === action)
       .flatMap(({payload}) => {
         return this.repos.take(1).map(repos => {
           return payload;

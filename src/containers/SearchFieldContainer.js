@@ -1,13 +1,12 @@
 import {default as React, PropTypes} from "react";
 import {TextField} from "material-ui";
 
-import {searchAll} from "../actions/RepoActions";
-
 class SearchFieldContainer extends React.Component {
 
   static get contextTypes () {
     return {
       muiTheme: PropTypes.object,
+      repoActions: PropTypes.object,
       repoStore: PropTypes.object,
     };
   }
@@ -25,7 +24,7 @@ class SearchFieldContainer extends React.Component {
   }
 
   handleEnterKeyDown (e) {
-    searchAll(this.refs.searchField.getValue());
+    this.context.repoActions.searchAll(this.refs.searchField.getValue());
   }
 
   render () {

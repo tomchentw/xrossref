@@ -1,7 +1,5 @@
 import {default as React} from "react";
 
-export default class EmptyComponent extends React.Component {
-  render () {
-    return null;
-  }
-}
+import {default as Flux} from "./Flux";
+
+export default Flux;
