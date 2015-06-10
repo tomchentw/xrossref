@@ -40,7 +40,9 @@ var clientConfig = {
       },
       {
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract("style-loader", "css-loader?root=../"),
+        loader: ExtractTextPlugin.extract("style-loader", "css-loader", {
+          publicPath: "",
+        }),
       },
       {
         test: /\.(otf|eot|svg|ttf|woff|woff2)(\?.+)?$/,
