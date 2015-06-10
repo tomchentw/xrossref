@@ -5,6 +5,7 @@
 var Path = require("path");
 var webpack = require("webpack");
 
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var IsomorphicReactPluginFactory = require("isomorphic-react-plugin-factory");
     
 var outputPath = Path.resolve(__dirname, "./public");
@@ -39,10 +40,7 @@ var clientConfig = {
       },
       {
         test: /\.css$/,
-        loaders: [
-          "style-loader",
-          "css-loader?root=../",
-        ],
+        loader: ExtractTextPlugin.extract("style-loader", "css-loader?root=../"),
       },
       {
         test: /\.(otf|eot|svg|ttf|woff|woff2)(\?.+)?$/,
@@ -84,6 +82,7 @@ if (IS_DEVELOPMENT) {
   clientConfig.output.path = Path.resolve(outputPath, "./" + clientConfig.output.publicPath);
 
   clientConfig.plugins.push(
+    new ExtractTextPlugin("[name].css"),
     new webpack.optimize.DedupePlugin()
   );
 }

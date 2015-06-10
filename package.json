@@ -32,6 +32,7 @@
     "btoa": "^1.1.2",
     "css-loader": "^0.14.4",
     "eslint": "^0.22.1",
+    "extract-text-webpack-plugin": "^0.8.1",
     "file-loader": "^0.8.4",
     "isomorphic-react-plugin-factory": "^1.0.1",
     "null-loader": "^0.1.1",
