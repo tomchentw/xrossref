@@ -1,7 +1,6 @@
 const debug = require("debug")("RepoActions");
 import {default as Rx} from "rx";
 import {FuncSubject} from "rx-react";
-import {default as fetch} from "isomorphic-fetch";
 
 import {default as RepoConstants} from "../constants/RepoConstants";
 

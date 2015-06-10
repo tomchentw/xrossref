@@ -57,6 +57,7 @@ var clientConfig = {
     }),
     new webpack.ProvidePlugin({
       "Promise": "bluebird",
+      "fetch": "isomorphic-fetch",
     }),
   ],
 };
@@ -136,6 +137,8 @@ var serverConfig = {
     new webpack.ProvidePlugin({
       "atob": "atob",
       "btoa": "btoa",
+      "Promise": "bluebird",
+      "fetch": "isomorphic-fetch",
     }),
   ],
 };
