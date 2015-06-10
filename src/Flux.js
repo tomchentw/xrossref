@@ -18,17 +18,18 @@ const CURRENT_URL = (
 export default class Flux extends React.Component {
 
   createFluxContext () {
-    const childContext = {};
+    const fluxContext = this.fluxContext = {};
     const updates = new Rx.Subject();
 
-    childContext.repoActions = new RepoActions(updates);
-    childContext.routeActions = new RouteActions(updates);
+    fluxContext.repoActions = new RepoActions(updates);
+    fluxContext.routeActions = new RouteActions(updates);
 
-    childContext.repoStore = new RepoStore(updates, childContext);
-    childContext.routeStore = new RouteStore(updates, childContext, CURRENT_URL);
+    fluxContext.repoStore = new RepoStore(updates, fluxContext);
+    fluxContext.routeStore = new RouteStore(updates, fluxContext, CURRENT_URL);
 
-    Object.keys(childContext).forEach(key => childContext[key].register());
-    return childContext;
+    this.subscriptions = Object.keys(fluxContext).map(key =>
+      fluxContext[key].register()
+    );
   }
 
   static get fluxContextTypes () {
@@ -43,9 +44,6 @@ export default class Flux extends React.Component {
 
   constructor(...args) {
     super(...args);
-    this.themeManager = new ThemeManager();
-
-    this.fluxContext = this.createFluxContext();
   }
 
   static get childContextTypes () {
@@ -63,9 +61,17 @@ export default class Flux extends React.Component {
   }
 
   componentWillMount () {
+    this.createFluxContext();
+    this.themeManager = new ThemeManager();
     this.themeManager.setPalette({
       accent1Color: Colors.deepOrange500
     });
+  }
+
+  componentWillUnmount () {
+    this.subscriptions.forEach(subscription =>
+      subscription.dispose()
+    );
   }
 
   render () {
