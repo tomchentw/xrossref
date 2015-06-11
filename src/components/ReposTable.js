@@ -67,14 +67,29 @@ class ReposTable extends React.Component {
           dataKey="stargazers_count"
         />
         <Column
+          label="Open Issues"
+          width={60}
+          dataKey="openIssuesCount"
+        />
+        <Column
+          label="Closed Issues"
+          width={60}
+          dataKey="closedIssuesCount"
+        />
+        <Column
           label="Forks"
           width={60}
           dataKey="forks_count"
         />
         <Column
-          label="Open Issues"
+          label="Open PRs"
           width={60}
-          dataKey="open_issues"
+          dataKey="openPRsCount"
+        />
+        <Column
+          label="Closed PRs"
+          width={60}
+          dataKey="closedPRsCount"
         />
       </Table>
     );
