@@ -2,6 +2,7 @@ const debug = require("debug")("ReposTable");
 import {default as React, PropTypes} from "react";
 import {Table, Column} from "fixed-data-table";
 import {default as Icon} from "react-fa";
+import {default as Timestamp} from "react-time";
 
 require("fixed-data-table/dist/fixed-data-table.css");
 
@@ -34,6 +35,19 @@ class ReposTable extends React.Component {
         name="times"
         onClick={this.props.onRepoRemove.bind(null, cellData)}
       />
+    );
+  }
+
+  renderDateCell (
+    cellData: any,
+    cellDataKey: string,
+    rowData: object,
+    rowIndex: number,
+    columnData: any,
+    width: number
+  ): ?$jsx {
+    return (
+      <Timestamp value={cellData} format="YYYY/MM/DD" />
     );
   }
 
@@ -90,6 +104,18 @@ class ReposTable extends React.Component {
           label="Closed PRs"
           width={60}
           dataKey="closedPRsCount"
+        />
+        <Column
+          label="Repo Init Date"
+          width={100}
+          dataKey="created_at"
+          cellRenderer={this.renderDateCell}
+        />
+        <Column
+          label="Last Push Date"
+          width={100}
+          dataKey="pushed_at"
+          cellRenderer={this.renderDateCell}
         />
       </Table>
     );
