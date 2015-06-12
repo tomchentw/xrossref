@@ -5,14 +5,16 @@ import {FuncSubject} from "rx-react";
 import {default as moment} from "moment";
 
 import * as GitHub from "../api/GitHub";
+import * as Kimono from "../api/Kimono";
 import {default as RepoConstants} from "../constants/RepoConstants";
 
 function getRepoInfo (rawOwnerRepoStr) {
   const ownerRepoStr = rawOwnerRepoStr.trim();
 
   const repoInfo = GitHub.repoInfo(ownerRepoStr);
-  const openIssuesCount = GitHub.openIssuesCount(ownerRepoStr);
-  const closedIssuesCount = GitHub.closedIssuesCount(ownerRepoStr);
+  const issuesCountsInfo = Kimono.issuesCountsInfo(ownerRepoStr);
+  const openIssuesCount = issuesCountsInfo.then(data => data.openIssuesCount);
+  const closedIssuesCount = issuesCountsInfo.then(data => data.closedIssuesCount);
 
   const openPRsCount = GitHub.openPRsCount(ownerRepoStr);
   const closedPRsCount = GitHub.closedPRsCount(ownerRepoStr);
