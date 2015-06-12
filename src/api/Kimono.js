@@ -20,3 +20,14 @@ export function issuesCountsInfo (ownerRepoStr) {
     .then(asJson)
     .then(data => data.results);
 }
+
+export function PRsCountsInfo (ownerRepoStr) {
+  const [owner, repo] = ownerRepoStr.split("/");
+
+  return oneRequestAtATime(
+    `https://www.kimonolabs.com/api/ondemand/9a3om980?apikey=${ API_KEY
+    }&kimmodify=1&kimpath1=${ owner }&kimpath2=${ repo }&kimpath3=pulls`
+  )
+    .then(asJson)
+    .then(data => data.results);
+}

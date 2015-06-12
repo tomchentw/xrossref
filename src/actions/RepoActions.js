@@ -12,13 +12,15 @@ function getRepoInfo (rawOwnerRepoStr) {
   const ownerRepoStr = rawOwnerRepoStr.trim();
 
   const repoInfo = GitHub.repoInfo(ownerRepoStr);
-  const issuesCountsInfo = Kimono.issuesCountsInfo(ownerRepoStr);
-  const openIssuesCount = issuesCountsInfo.then(data => data.openIssuesCount);
-  const closedIssuesCount = issuesCountsInfo.then(data => data.closedIssuesCount);
-
-  const openPRsCount = GitHub.openPRsCount(ownerRepoStr);
-  const closedPRsCount = GitHub.closedPRsCount(ownerRepoStr);
   const lastYearCommitsCount = GitHub.lastYearCommitsCount(ownerRepoStr);
+
+  const issuesCountsInfo = Kimono.issuesCountsInfo(ownerRepoStr);
+  const openIssuesCount = issuesCountsInfo.then(data => data.openItemsCount);
+  const closedIssuesCount = issuesCountsInfo.then(data => data.closedItemsCount);
+
+  const prsCountsInfo = Kimono.PRsCountsInfo(ownerRepoStr);
+  const openPRsCount = prsCountsInfo.then(data => data.openItemsCount);
+  const closedPRsCount = prsCountsInfo.then(data => data.closedItemsCount);
 
   return Promise.props({
     repoInfo,
