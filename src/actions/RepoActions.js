@@ -4,50 +4,19 @@ import {default as Rx} from "rx";
 import {FuncSubject} from "rx-react";
 import {default as moment} from "moment";
 
+import * as GitHub from "../api/GitHub";
 import {default as RepoConstants} from "../constants/RepoConstants";
-
-function asJson (res) {
-  return res.json();
-}
 
 function getRepoInfo (rawOwnerRepoStr) {
   const ownerRepoStr = rawOwnerRepoStr.trim();
-  const repoInfo = fetch(
-    `https://api.github.com/repos/${ ownerRepoStr }`
-  )
-    .then(asJson);
 
-  const openIssuesCount = fetch(
-    `https://api.github.com/search/issues?q=repo:${ ownerRepoStr }+state:open+is:issue`
-  )
-    .then(asJson)
-    .then(data => data.total_count);
+  const repoInfo = GitHub.repoInfo(ownerRepoStr);
+  const openIssuesCount = GitHub.openIssuesCount(ownerRepoStr);
+  const closedIssuesCount = GitHub.closedIssuesCount(ownerRepoStr);
 
-
-  const closedIssuesCount = fetch(
-    `https://api.github.com/search/issues?q=repo:${ ownerRepoStr }+state:closed+is:issue`
-  )
-    .then(asJson)
-    .then(data => data.total_count);
-
-  const openPRsCount = fetch(
-    `https://api.github.com/search/issues?q=repo:${ ownerRepoStr }+state:open+is:pr`
-  )
-    .then(asJson)
-    .then(data => data.total_count);
-
-
-  const closedPRsCount = fetch(
-    `https://api.github.com/search/issues?q=repo:${ ownerRepoStr }+state:closed+is:pr`
-  )
-    .then(asJson)
-    .then(data => data.total_count);
-
-  const lastYearCommitsCount = fetch(
-    `https://api.github.com/repos/${ ownerRepoStr }/stats/participation`
-  )
-    .then(asJson)
-    .then(data => data.all.reduce((acc, c) => { return acc + c; }, 0));
+  const openPRsCount = GitHub.openPRsCount(ownerRepoStr);
+  const closedPRsCount = GitHub.closedPRsCount(ownerRepoStr);
+  const lastYearCommitsCount = GitHub.lastYearCommitsCount(ownerRepoStr);
 
   return Promise.props({
     repoInfo,
