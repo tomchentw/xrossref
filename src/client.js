@@ -12,6 +12,8 @@ import {default as Flux} from "./Flux";
 //https://github.com/zilverline/react-tap-event-plugin
 injectTapEventPlugin();
 
+Parse.initialize("DZVj6JFa1zjlLZBEkShSxWKDYtbeShS0PHLeZ0Sk", "gc4hhkwulJfCaT8Ti1gJJIfI42yD1RYobdmbqly8");
+
 React.render((
   <Flux />
 ),
