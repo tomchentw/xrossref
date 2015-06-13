@@ -8,7 +8,7 @@ var webpack = require("webpack");
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var IsomorphicReactPluginFactory = require("isomorphic-react-plugin-factory");
     
-var outputPath = Path.resolve(__dirname, "./public");
+var publicDirPath = Path.resolve(__dirname, "./public");
 
 var IS_PRODUCTION = "production" === process.env.NODE_ENV;
 var IS_DEVELOPMENT = !IS_PRODUCTION;
@@ -28,7 +28,7 @@ var clientConfig = {
     "assets/client": "./src/client.js",
   },
   output: {
-    path: outputPath,
+    path: publicDirPath,
     filename: "[name].js",
   },
   module: {
@@ -85,7 +85,7 @@ if (IS_DEVELOPMENT) {
   }, {});
 
   clientConfig.output.publicPath = "assets/[hash]/";
-  clientConfig.output.path = Path.resolve(outputPath, "./" + clientConfig.output.publicPath);
+  clientConfig.output.path = Path.resolve(publicDirPath, "./" + clientConfig.output.publicPath);
 
   clientConfig.plugins.push(
     new webpack.optimize.DedupePlugin()
@@ -98,7 +98,7 @@ var serverConfig = {
     "tmp/html": "./src/html.js",
   },
   output: {
-    path: outputPath,
+    path: publicDirPath,
     filename: "[name].js",
     library: true,
     libraryTarget: "commonjs2",
@@ -154,7 +154,7 @@ webpackConfigsArray.devServer = {
   hot: IS_DEVELOPMENT,
   host: HOST,
   port: PORT,
-  contentBase: outputPath,
+  contentBase: publicDirPath,
 };
 
 module.exports = webpackConfigsArray;
