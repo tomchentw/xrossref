@@ -71,25 +71,29 @@ export default class RepoActions {
 
   applySearchAll () {
     return this.searchAll.flatMap((terms="") => {
-      const searchAllPms = Promise.resolve({
-        action: RepoConstants.searchAll,
-        payload: {terms},
-      });
-
-      const searchAllSuccessPms = Promise.all(
-        terms.split(",").map(getRepoInfo)
-      ).then(repos => {
-        return {
-          action: RepoConstants.searchAllSuccess,
-          payload: repos,
-        };
-      });
-
-      return Rx.Observable.merge(...[
-        Rx.Observable.fromPromise(searchAllPms),
-        Rx.Observable.fromPromise(searchAllSuccessPms),
-      ]);
-    })
+      return Rx.Observable.from(terms.split(","))
+        .flatMap((rawOwnerRepoStr, index) => {
+          return getRepoInfo(rawOwnerRepoStr).then((repoInfo) => {
+            return {
+              repoInfo,
+              index,
+            };
+          });
+        })
+        .scan(Immutable.List(), (list, {repoInfo, index}) => {
+          return list.set(index, repoInfo);
+        })
+        .map((repos) => {
+          return {
+            action: RepoConstants.searchAllSuccess,
+            payload: repos,
+          };
+        })
+        .startWith({
+          action: RepoConstants.searchAll,
+          payload: {terms},
+        });
+    });
   }
 
   applyRemoveOne () {
