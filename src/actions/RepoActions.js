@@ -5,7 +5,7 @@ import {FuncSubject} from "rx-react";
 import {default as moment} from "moment";
 
 import * as GitHub from "../api/GitHub";
-import * as Kimono from "../api/Kimono";
+import * as Parse from "../api/Parse";
 import {default as RepoConstants} from "../constants/RepoConstants";
 
 function getRepoInfo (rawOwnerRepoStr) {
@@ -14,13 +14,13 @@ function getRepoInfo (rawOwnerRepoStr) {
   const repoInfo = GitHub.repoInfo(ownerRepoStr);
   const lastYearCommitsCount = GitHub.lastYearCommitsCount(ownerRepoStr);
 
-  const issuesCountsInfo = Kimono.issuesCountsInfo(ownerRepoStr);
-  const openIssuesCount = issuesCountsInfo.then(data => data.openItemsCount);
-  const closedIssuesCount = issuesCountsInfo.then(data => data.closedItemsCount);
+  const issuesCountsInfo = Parse.issuesCountsInfo(ownerRepoStr);
+  const openIssuesCount = issuesCountsInfo.then(data => data.openIssuesCount);
+  const closedIssuesCount = issuesCountsInfo.then(data => data.closedIssuesCount);
 
-  const prsCountsInfo = Kimono.PRsCountsInfo(ownerRepoStr);
-  const openPRsCount = prsCountsInfo.then(data => data.openItemsCount);
-  const closedPRsCount = prsCountsInfo.then(data => data.closedItemsCount);
+  const prsCountsInfo = Parse.PRsCountsInfo(ownerRepoStr);
+  const openPRsCount = prsCountsInfo.then(data => data.openPRsCount);
+  const closedPRsCount = prsCountsInfo.then(data => data.closedPRsCount);
 
   return Promise.props({
     repoInfo,

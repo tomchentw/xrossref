@@ -21,12 +21,13 @@ class ReactHtml extends React.Component {
       <html>
         <head>
           <title>Xrossref | tomchentw</title>
-          <link href="http://fonts.googleapis.com/css?family=Roboto:400,300,500" rel="stylesheet" type="text/css" />
+          <link href="//fonts.googleapis.com/css?family=Roboto:400,300,500"/>
           {this._render_link_to_stylesheet_(clientAssets)}
         </head>
         <body>
           <div id="react-container" dangerouslySetInnerHTML={innerHtml} />
-          <script type="text/javascript" src={clientAssets["assets/client"] || clientAssets["client"]} />
+          <script src="//www.parsecdn.com/js/parse-1.4.2.min.js" />
+          <script src={clientAssets["assets/client"] || clientAssets["client"]} />
         </body>
       </html>
     );
