@@ -38,6 +38,7 @@ node_modules
 
 
 ### Project ###
+cloud/*
 public/assets
 public/tmp
 public/index.html
