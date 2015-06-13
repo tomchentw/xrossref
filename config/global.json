@@ -1,0 +1,14 @@
+{
+  "global": {
+    "parseVersion": "1.4.2"
+  },
+  "applications": {
+    "_default": {
+      "link": "xrossref"
+    },
+    "xrossref": {
+      "applicationId": "DZVj6JFa1zjlLZBEkShSxWKDYtbeShS0PHLeZ0Sk",
+      "masterKey": "38oQZk3leuBWuOomXftrImPB8Y3tiwbpr4KmcQ7N"
+    }
+  }
+}
