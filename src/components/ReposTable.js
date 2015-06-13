@@ -59,13 +59,13 @@ class ReposTable extends React.Component {
   render () {
     const {props, state} = this;
     const {repos} = props;
-    const rowGetter = (rowIndex) => repos[rowIndex];
+    const rowGetter = (rowIndex) => repos.get(rowIndex);
 
     return (
       <Table
         rowHeight={50}
         rowGetter={rowGetter}
-        rowsCount={repos.length}
+        rowsCount={repos.size}
         width={1000}
         height={600}
         headerHeight={50}>
