@@ -5,4 +5,7 @@ export function issuesCountsInfo (ownerRepoStr) {
 }
 
 export function PRsCountsInfo (ownerRepoStr) {
+  return Parse.Cloud.run("PRsCountsInfo", {
+    ownerRepoStr,
+  });
 }
