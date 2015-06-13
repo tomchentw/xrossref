@@ -145,9 +145,32 @@ var serverConfig = {
   ],
 };
 
+var parseConfig = {
+  entry: {
+    "main": "./src/parse.js",
+  },
+  output: {
+    path: Path.resolve(__dirname, "./cloud"),
+    filename: "[name].js",
+  },
+  target: "node",
+  module: {
+    loaders: [
+      {
+        test: /\.js(x?)$/,
+        exclude: /node_modules/,
+        loader: BABEL_LOADER,
+      },
+    ],
+  },
+  plugins: [
+  ],
+};
+
 var webpackConfigsArray = [
   clientConfig,
   serverConfig,
+  parseConfig,
 ];
 
 webpackConfigsArray.devServer = {
