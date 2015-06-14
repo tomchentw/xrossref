@@ -7,24 +7,37 @@ class SearchFieldContainer extends React.Component {
     return {
       muiTheme: PropTypes.object,
       repoActions: PropTypes.object,
-      repoStore: PropTypes.object,
-    };
-  }
-
-  static get defaultProps () {
-    return {
-      searchTerm: "facebook/react, angular/angular.js",
+      routeStore: PropTypes.object,
     };
   }
 
   constructor(...args) {
     super(...args);
 
+    this.state = {
+    };
+    this.handleChange = this.handleChange.bind(this);
     this.handleEnterKeyDown = this.handleEnterKeyDown.bind(this);
   }
 
+  componentDidMount () {
+    const {currentUrl} = this.context.routeStore;
+    currentUrl
+      .take(1)
+      .map(atob)
+      .subscribe(searchTerm => {
+        this.setState({ searchTerm });
+      });
+  }
+
+  handleChange (e) {
+    this.setState({
+      searchTerm: this.refs.searchField.getValue(),
+    });
+  }
+
   handleEnterKeyDown (e) {
-    this.context.repoActions.searchAll(this.refs.searchField.getValue());
+    this.context.repoActions.searchAll(this.state.searchTerm);
   }
 
   render () {
@@ -35,7 +48,8 @@ class SearchFieldContainer extends React.Component {
         ref="searchField"
         style={{width: 400}}
         hintText="Enter GitHub repo (with author's name)"
-        defaultValue={props.searchTerm}
+        value={state.searchTerm}
+        onChange={this.handleChange}
         onEnterKeyDown={this.handleEnterKeyDown}
         floatingLabelText="Compare several repos with ," />
     );
