@@ -134,13 +134,13 @@ class ReposTable extends React.Component {
         />
         <Column
           label="Last Year Commits Count"
-          width={100}
+          width={140}
           dataKey="lastYearCommitsCount"
           cellDataGetter={immutableCellDataGetter}
         />
         <Column
           label="Days Since Last Commit"
-          width={100}
+          width={120}
           dataKey="daysSinceLastCommit"
           cellDataGetter={immutableCellDataGetter}
         />

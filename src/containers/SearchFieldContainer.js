@@ -46,7 +46,7 @@ class SearchFieldContainer extends React.Component {
     return (
       <TextField
         ref="searchField"
-        style={{width: 400}}
+        style={{width: "100%"}}
         hintText="Enter GitHub repo (with author's name)"
         value={state.searchTerm}
         onChange={this.handleChange}
