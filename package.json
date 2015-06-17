@@ -7,7 +7,9 @@
     "clean": "rm -rf ./cloud ./public/index.html ./public/assets ./public/tmp",
     "build_client": "npm run build",
     "build": "npm run clean && NODE_ENV=production webpack -p",
-    "dev": "npm run clean && webpack-dev-server -d"
+    "dev": "npm run clean && webpack-dev-server -d",
+    "lint": "eslint src",
+    "test": "npm run lint"
   },
   "repository": {
     "type": "git",
