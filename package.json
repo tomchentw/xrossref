@@ -1,7 +1,7 @@
 {
   "name": "xrossref",
   "version": "1.0.0",
-  "description": "",
+  "description": "GitHub repos cross compare references",
   "main": "index.js",
   "scripts": {
     "clean": "rm -rf ./cloud ./public/index.html ./public/assets ./public/tmp",
