@@ -8,15 +8,15 @@
 * [[React v.s. Angular][react_vs_angular]][react_vs_angular]
 
 
-### Development
+## Development
 
 ```shell
 git clone ...
 npm install
-npm run dev
+npm start
 ```
 
-Then open [http://localhost:8080](http://localhost:8001).
+Then open [http://localhost:8080](http://localhost:8080).
 
 
 ## Contributing
