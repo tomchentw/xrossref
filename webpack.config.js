@@ -14,8 +14,7 @@ var IS_PRODUCTION = "production" === process.env.NODE_ENV;
 var IS_DEVELOPMENT = !IS_PRODUCTION;
 var BABEL_LOADER = "babel-loader?stage=1";
 
-var HOST = "127.0.0.1";
-var PORT = "8001";
+var HOST = "localhost";
 
 var isomorphicReactPlugin = new IsomorphicReactPluginFactory({
   serverComponentPath: "tmp/server.js",
@@ -69,7 +68,7 @@ if (IS_DEVELOPMENT) {
   Object.keys(clientConfig.entry).forEach(function (key) {
     clientConfig.entry[key] = this.concat(clientConfig.entry[key]);
   }, [
-    require.resolve("webpack-dev-server/client/") + "?http://" + HOST + ":" + PORT,
+    require.resolve("webpack-dev-server/client/") + "?http://" + HOST + ":8080",
     "webpack/hot/dev-server"
   ]);
 
@@ -176,7 +175,6 @@ var webpackConfigsArray = [
 webpackConfigsArray.devServer = {
   hot: IS_DEVELOPMENT,
   host: HOST,
-  port: PORT,
   contentBase: publicDirPath,
 };
 
