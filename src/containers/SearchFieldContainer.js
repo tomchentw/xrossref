@@ -30,13 +30,13 @@ class SearchFieldContainer extends React.Component {
       });
   }
 
-  handleChange (e) {
+  handleChange () {
     this.setState({
       searchTerm: this.refs.searchField.getValue(),
     });
   }
 
-  handleEnterKeyDown (e) {
+  handleEnterKeyDown () {
     this.context.repoActions.searchAll(this.state.searchTerm);
   }
 

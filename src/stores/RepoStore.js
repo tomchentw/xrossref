@@ -1,4 +1,3 @@
-const debug = require("debug")("RepoStore");
 import {default as Rx} from "rx";
 
 import {default as RepoConstants} from "../constants/RepoConstants";
@@ -10,7 +9,7 @@ export default class RepoStore {
   constructor (updates, storesMap) {
     this.updates = updates;
     this.storesMap = storesMap;
-    this.repos =  new Rx.BehaviorSubject([]);
+    this.repos = new Rx.BehaviorSubject([]);
   }
 
   register () {
@@ -25,7 +24,7 @@ export default class RepoStore {
     return this.updates
       .filter(({action}) => RepoConstants.searchAllSuccess === action)
       .flatMap(({payload}) => {
-        return this.repos.take(1).map(repos => {
+        return this.repos.take(1).map(() => {
           return payload;
         });
       });

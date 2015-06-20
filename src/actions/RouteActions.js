@@ -1,4 +1,3 @@
-const debug = require("debug")("RouteActions");
 import {default as Rx} from "rx";
 import {FuncSubject} from "rx-react";
 
@@ -29,7 +28,7 @@ export default class RouteActions {
         action: RouteConstants.changeUrl,
         payload: {url},
       };
-    })
+    });
   }
 }
 

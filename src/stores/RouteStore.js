@@ -1,4 +1,3 @@
-const debug = require("debug")("RouteStore");
 import {default as Rx} from "rx";
 
 import {default as RepoConstants} from "../constants/RepoConstants";

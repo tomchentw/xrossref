@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "clean": "rm -rf ./cloud ./public/index.html ./public/assets ./public/tmp",
-    "build": "npm run clean && webpack -p",
+    "build": "npm run clean && NODE_ENV=production webpack -p",
     "dev": "npm run clean && webpack -d",
     "start": "npm run clean && webpack-dev-server -d",
     "lint": "eslint src",
@@ -34,6 +34,7 @@
     "btoa": "^1.1.2",
     "css-loader": "^0.14.4",
     "eslint": "^0.22.1",
+    "eslint-plugin-react": "^2.5.2",
     "extract-text-webpack-plugin": "^0.8.1",
     "file-loader": "^0.8.4",
     "isomorphic-react-plugin-factory": "^1.0.1",
