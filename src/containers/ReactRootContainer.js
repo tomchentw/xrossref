@@ -1,4 +1,5 @@
 import {default as React, PropTypes} from "react";
+import {default as GitHubForkRibbon} from "react-github-fork-ribbon";
 
 import {default as ReactRoot} from "../components/ReactRoot";
 import {default as ReposTableContainer} from "./ReposTableContainer";
@@ -35,6 +36,12 @@ class ReactRootContainer extends React.Component {
 
     return (
       <ReactRoot>
+        <GitHubForkRibbon
+          position="right"
+          color="black"
+          href="https://github.com/tomchentw/xrossref">
+          Fork me on GitHub
+        </GitHubForkRibbon>
         <SearchFieldContainer />
         <ReposTableContainer />
       </ReactRoot>
