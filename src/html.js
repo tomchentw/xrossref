@@ -5,9 +5,9 @@ const {PropTypes} = React;
 class ReactHtml extends React.Component {
 
   _render_link_to_stylesheet_ (clientAssets) {
-    if (clientAssets["client"]) {
+    if (clientAssets.client) {
       return (
-        <link rel="stylesheet" href={clientAssets["client"].replace(/js$/, "css")} />
+        <link rel="stylesheet" href={clientAssets.client.replace(/js$/, "css")} />
       );
     }
   }
@@ -27,7 +27,7 @@ class ReactHtml extends React.Component {
         <body>
           <div id="react-container" dangerouslySetInnerHTML={innerHtml} />
           <script src="//www.parsecdn.com/js/parse-1.4.2.min.js" />
-          <script src={clientAssets["assets/client"] || clientAssets["client"]} />
+          <script src={clientAssets["assets/client"] || clientAssets.client} />
         </body>
       </html>
     );

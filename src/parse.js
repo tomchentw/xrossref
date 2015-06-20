@@ -1,1 +1,1 @@
-import * as GitHub from "./cloud/GitHub";
+import "./cloud/GitHub";
