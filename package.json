@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "clean": "rm -rf ./cloud ./public/index.html ./public/assets ./public/tmp",
-    "build_client": "npm run build",
-    "build": "npm run clean && NODE_ENV=production webpack -p",
-    "dev": "npm run clean && webpack-dev-server -d",
+    "build": "npm run clean && webpack -p",
+    "dev": "npm run clean && webpack -d",
+    "start": "npm run clean && webpack-dev-server -d",
     "lint": "eslint src",
     "test": "npm run lint"
   },
@@ -40,7 +40,7 @@
     "null-loader": "^0.1.1",
     "react-hot-loader": "^1.2.7",
     "style-loader": "^0.12.3",
-    "tomchentw-npm-dev": "^1.2.2",
+    "tomchentw-npm-dev": "^2.0.1",
     "url-loader": "^0.5.6",
     "webpack": "^1.9.10",
     "webpack-dev-server": "^1.9.0"
@@ -59,6 +59,6 @@
     "react-tap-event-plugin": "^0.1.7",
     "react-time": "^2.5.0",
     "rx": "^2.5.3",
-    "rx-react": "git+git@github.com:fdecampredon/rx-react.git#master"
+    "rx-react": "git+https://github.com/fdecampredon/rx-react.git#master"
   }
 }
