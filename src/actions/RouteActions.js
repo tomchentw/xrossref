@@ -28,7 +28,7 @@ export default class RouteActions {
         action: RouteConstants.changeUrl,
         payload: {url},
       };
-    })
+    });
   }
 }
 

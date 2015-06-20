@@ -10,37 +10,37 @@ import {default as RepoConstants} from "../constants/RepoConstants";
 function getRepoInfo (rawOwnerRepoStr) {
   const ownerRepoStr = rawOwnerRepoStr.trim();
 
-  const repoInfo = GitHub.repoInfo(ownerRepoStr);
+  const repoInfoPms = GitHub.repoInfo(ownerRepoStr);
   const lastYearCommitsCount = GitHub.lastYearCommitsCount(ownerRepoStr);
 
   const issuesCountsInfo = Parse.issuesCountsInfo(ownerRepoStr);
   const openIssuesCount = issuesCountsInfo.then(data => data.openIssuesCount);
   const closedIssuesCount = issuesCountsInfo.then(data => data.closedIssuesCount);
 
-  const prsCountsInfo = Parse.PRsCountsInfo(ownerRepoStr);
+  const prsCountsInfo = Parse.pullRequestsCountsInfo(ownerRepoStr);
   const openPRsCount = prsCountsInfo.then(data => data.openPRsCount);
   const closedPRsCount = prsCountsInfo.then(data => data.closedPRsCount);
 
   return Promise.props({
-    repoInfo,
+    repoInfo: repoInfoPms,
     openIssuesCount,
     closedIssuesCount,
     openPRsCount,
     closedPRsCount,
     lastYearCommitsCount,
-  }).then((promisesMap) => {
-    return Immutable.fromJS(promisesMap).withMutations(map => {
-      const repoInfo = map.get("repoInfo")
+  }).then((promisesMapJS) => {
+    return Immutable.fromJS(promisesMapJS).withMutations(promisesMap => {
+      const repoInfo = promisesMap.get("repoInfo")
         .groupBy((value, key) => /ed_at/.test(key))
         .reduce((acc, map, isMoment) => {
           return acc.merge(
             isMoment ? map.map(value => moment(value)) : map
           );
-        }, Immutable.Map());
+        }, new Immutable.Map());
       const diffOfLastPushDays = repoInfo.get("pushed_at")
         .diff(moment(), "days");
 
-      map.delete("repoInfo")
+      promisesMap.delete("repoInfo")
         .merge(repoInfo)
         .set("daysSinceLastCommit", Math.abs(diffOfLastPushDays));
     });
@@ -79,7 +79,7 @@ export default class RepoActions {
             };
           });
         })
-        .scan(Immutable.List(), (list, {repoInfo, index}) => {
+        .scan(new Immutable.List(), (list, {repoInfo, index}) => {
           return list.set(index, repoInfo);
         })
         .map((repos) => {
@@ -101,6 +101,6 @@ export default class RepoActions {
         action: RepoConstants.removeOne,
         payload: {id},
       };
-    })
+    });
   }
 }

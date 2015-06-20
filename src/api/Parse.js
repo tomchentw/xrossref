@@ -4,7 +4,7 @@ export function issuesCountsInfo (ownerRepoStr) {
   });
 }
 
-export function PRsCountsInfo (ownerRepoStr) {
+export function pullRequestsCountsInfo (ownerRepoStr) {
   return Parse.Cloud.run("PRsCountsInfo", {
     ownerRepoStr,
   });
