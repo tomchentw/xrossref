@@ -59,6 +59,6 @@
     "react-tap-event-plugin": "^0.1.7",
     "react-time": "^2.5.0",
     "rx": "^2.5.3",
-    "rx-react": "git+git@github.com:fdecampredon/rx-react.git#master"
+    "rx-react": "git+https://github.com/fdecampredon/rx-react.git#master"
   }
 }
