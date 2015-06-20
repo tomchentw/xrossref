@@ -1,4 +1,3 @@
-const debug = require("debug")("RepoActions");
 import {default as Immutable} from "immutable";
 import {default as Rx} from "rx";
 import {FuncSubject} from "rx-react";

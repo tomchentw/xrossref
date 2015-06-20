@@ -1,4 +1,3 @@
-const debug = require("debug")("RepoStore");
 import {default as Rx} from "rx";
 
 import {default as RepoConstants} from "../constants/RepoConstants";

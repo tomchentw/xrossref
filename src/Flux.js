@@ -1,4 +1,3 @@
-const debug = require("debug")("Flux");
 import {default as React, PropTypes} from "react";
 import {default as Rx} from "rx";
 import {Styles} from "material-ui";

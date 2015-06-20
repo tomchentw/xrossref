@@ -1,4 +1,3 @@
-const debug = require("debug")("ReposTable");
 import {default as React, PropTypes} from "react";
 import {Table, Column} from "fixed-data-table";
 import {default as Icon} from "react-fa";

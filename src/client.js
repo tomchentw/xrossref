@@ -1,5 +1,4 @@
 const Debug = require("debug");
-const debug = Debug("client");
 
 import {default as React} from "react";
 import {default as injectTapEventPlugin} from "react-tap-event-plugin";

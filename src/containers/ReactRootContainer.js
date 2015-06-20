@@ -1,4 +1,3 @@
-const debug = require("debug")("ReactRootContainer");
 import {default as React, PropTypes} from "react";
 
 import {default as ReactRoot} from "../components/ReactRoot";
