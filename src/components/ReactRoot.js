@@ -4,6 +4,12 @@ import {AppBar} from "material-ui";
 
 class ReactRoot extends React.Component {
 
+  static get propTypes () {
+    return {
+      children: PropTypes.renderable,
+    };
+  }
+
   constructor(...args) {
     super(...args);
   }

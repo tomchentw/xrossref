@@ -5,12 +5,14 @@ import {default as Timestamp} from "react-time";
 
 require("fixed-data-table/dist/fixed-data-table.css");
 
+/*eslint-disable no-unused-vars, no-undef*/
 function immutableCellDataGetter (
   cellDataKey: string,
   rowData: object
 ): any {
   return rowData.get(cellDataKey);
 }
+/*eslint-enable no-unused-vars, no-undef*/
 
 class ReposTable extends React.Component {
 
@@ -26,6 +28,7 @@ class ReposTable extends React.Component {
     };
   }
 
+  /*eslint-disable no-unused-vars, no-undef*/
   renderRemoveCell (
     cellData: any,
     cellDataKey: string,
@@ -54,6 +57,7 @@ class ReposTable extends React.Component {
       <Timestamp value={cellData} format="YYYY/MM/DD" />
     );
   }
+  /*eslint-enable no-unused-vars, no-undef*/
 
   render () {
     const {props, state} = this;
