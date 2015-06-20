@@ -43,4 +43,4 @@ public/assets
 public/tmp
 public/index.html
 public/*.gz
-
+tmp/*

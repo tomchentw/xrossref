@@ -17,8 +17,8 @@ var BABEL_LOADER = "babel-loader?stage=1";
 var HOST = "localhost";
 
 var isomorphicReactPlugin = new IsomorphicReactPluginFactory({
-  serverComponentPath: "tmp/server.js",
-  serverMarkupPath: "tmp/html.js",
+  serverComponentPath: "../tmp/server.js",
+  serverMarkupPath: "../tmp/html.js",
   htmlOutputFilename: "index.html",
 });
 
@@ -93,8 +93,8 @@ if (IS_DEVELOPMENT) {
 
 var serverConfig = {
   entry: {
-    "tmp/server": "./src/server.js",
-    "tmp/html": "./src/html.js",
+    "../tmp/server": "./src/server.js",
+    "../tmp/html": "./src/html.js",
   },
   output: {
     path: publicDirPath,
