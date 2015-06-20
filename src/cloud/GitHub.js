@@ -1,3 +1,5 @@
+/*global Parse*/
+
 import {default as textToNumber} from "./textToNumber";
 import {default as fetchPage} from "./fetchPage";
 

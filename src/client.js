@@ -1,3 +1,4 @@
+/*global Parse*/
 const Debug = require("debug");
 
 import {default as React} from "react";
