@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "clean": "rm -rf ./cloud ./public/index.html ./public/assets ./public/tmp",
-    "build": "npm run clean && webpack -p",
+    "build": "npm run clean && NODE_ENV=production webpack -p",
     "dev": "npm run clean && webpack -d",
     "start": "npm run clean && webpack-dev-server -d",
     "lint": "eslint src",
