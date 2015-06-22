@@ -35,13 +35,9 @@ export default class RepoStore {
       .filter(({action}) => RepoConstants.removeOne === action)
       .flatMap(({payload: {id}}) => {
         return this.repos.take(1).map(repos => {
-          for (let i = 0; i < repos.length; i++) {
-            if (id === repos[i].id) {
-              repos.splice(i, 1);
-              return repos;
-            }
-          }
-          return repos;
+          return repos.delete(
+            repos.findIndex(repo => id === repo.id)
+          );
         });
       });
   }
