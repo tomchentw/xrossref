@@ -34,7 +34,7 @@ export default class RouteStore {
       .filter(({action}) => RepoConstants.removeOne === action)
       .flatMap(() => {
         return this.storesMap.repoStore.repos.take(1).map((repos) => {
-          return repos.map(repo => repo.full_name).join(", ");
+          return repos.map(repo => repo.get("full_name")).join(", ");
         });
       })
       .map(btoa);
