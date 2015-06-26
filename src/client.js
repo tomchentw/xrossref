@@ -2,9 +2,12 @@
 const Debug = require("debug");
 
 import {default as React} from "react";
+import {default as ga} from "react-google-analytics";
 import {default as injectTapEventPlugin} from "react-tap-event-plugin";
 
 import {default as Flux} from "./Flux";
+
+ga("create", process.env.GOOGLE_ANALYTICS_TRACK_NUMBER, "auto");
 
 //Needed for onTouchTap
 //Can go away when react 1.0 release

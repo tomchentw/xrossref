@@ -1,4 +1,5 @@
 import {default as React, PropTypes} from "react";
+import {default as ga, Initializer as GAInitiailizer} from "react-google-analytics";
 import {default as GitHubForkRibbon} from "react-github-fork-ribbon";
 
 import {default as ReactRoot} from "../components/ReactRoot";
@@ -24,6 +25,9 @@ class ReactRootContainer extends React.Component {
     const {currentUrl} = this.context.routeStore;
     currentUrl.subscribe((url) => {
       location.hash = url;
+      ga("send", "pageview", {
+        "page": `${ location.pathname }${ location.search }${ location.hash }`,
+      });
     });
     currentUrl
       .take(1)
@@ -36,6 +40,7 @@ class ReactRootContainer extends React.Component {
 
     return (
       <ReactRoot>
+        <GAInitiailizer />
         <GitHubForkRibbon
           position="right"
           color="black"

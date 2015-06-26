@@ -22,6 +22,11 @@ var isomorphicReactPlugin = new IsomorphicReactPluginFactory({
   htmlOutputFilename: "index.html",
 });
 
+var commonDefinePlugin = new webpack.DefinePlugin({
+  "process.env.GOOGLE_ANALYTICS_TRACK_NUMBER": JSON.stringify("UA-41104589-15"),
+  "process.env.GOOGLE_ANALYTICS_ID": JSON.stringify("104405838"), // Get this from https://ga-dev-tools.appspot.com/query-explorer/
+});
+
 var clientConfig = {
   entry: {
     "assets/client": "./src/client.js",
@@ -53,6 +58,7 @@ var clientConfig = {
   },
   plugins: [
     isomorphicReactPlugin.clientPlugin,
+    commonDefinePlugin,
     new ExtractTextPlugin("[name].css", {
       disable: IS_DEVELOPMENT,
     }),
@@ -135,6 +141,7 @@ var serverConfig = {
   },
   plugins: [
     isomorphicReactPlugin.serverPlugin,
+    commonDefinePlugin,
     new webpack.ProvidePlugin({
       "atob": "atob",
       "btoa": "btoa",
@@ -163,6 +170,7 @@ var parseConfig = {
     ],
   },
   plugins: [
+    commonDefinePlugin,
   ],
 };
 
