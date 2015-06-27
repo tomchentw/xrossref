@@ -1,6 +1,8 @@
+import {default as Immutable} from "immutable";
 import {default as Rx} from "rx";
 import {FuncSubject} from "rx-react";
 
+import * as ParseAPI from "../api/ParseAPI";
 import {default as RouteConstants} from "../constants/RouteConstants";
 
 export default class RouteActions {
@@ -8,6 +10,7 @@ export default class RouteActions {
     this.updates = updates;
     //
     this.changeUrl = FuncSubject.create();
+    this.loadTopPaths = FuncSubject.create();
   }
 
   register () {
@@ -18,6 +21,7 @@ export default class RouteActions {
      */
     return Rx.Observable.merge(...[
       this.applyChangeUrl(),
+      this.applyLoadTopPaths(),
     ])
       .subscribe(this.updates);
   }
@@ -28,6 +32,19 @@ export default class RouteActions {
         action: RouteConstants.changeUrl,
         payload: {url},
       };
+    });
+  }
+
+  applyLoadTopPaths () {
+    return this.loadTopPaths.flatMap(() => {
+      return ParseAPI.getTopPaths()
+        .then(Immutable.fromJS)
+        .then((topPaths) => {
+          return {
+            action: RouteConstants.loadTopPathsSuccess,
+            payload: {topPaths},
+          };
+        });
     });
   }
 }
