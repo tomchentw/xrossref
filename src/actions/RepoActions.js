@@ -3,8 +3,8 @@ import {default as Rx} from "rx";
 import {FuncSubject} from "rx-react";
 import {default as moment} from "moment";
 
-import * as GitHubAPI from "../api/GitHub";
-import * as ParseAPI from "../api/Parse";
+import * as GitHubAPI from "../api/GitHubAPI";
+import * as ParseAPI from "../api/ParseAPI";
 import {default as RepoConstants} from "../constants/RepoConstants";
 
 function getRepoInfo (rawOwnerRepoStr) {
