@@ -10,16 +10,32 @@ export default class RouteStore {
   constructor (updates, storesMap, currentUrl) {
     this.updates = updates;
     this.storesMap = storesMap;
+
     this.currentUrl = new Rx.BehaviorSubject(currentUrl);
+    this.topPaths = new Rx.BehaviorSubject([]);
   }
 
   register () {
+    return Rx.Observable.merge(...[
+      this.registerCurrentUrl(),
+      this.registerTopPaths(),
+    ]);
+  }
+
+  registerCurrentUrl () {
     return Rx.Observable.merge(...[
       this.handleSearchAll(),
       this.hanlleRemoveOne(),
       this.handleChangeUrl(),
     ])
       .subscribe(this.currentUrl);
+  }
+
+  registerTopPaths () {
+    return Rx.Observable.merge(...[
+      this.handleLoadTopPathsSuccess(),
+    ])
+      .subscribe(this.topPaths);
   }
 
   handleSearchAll () {
@@ -45,6 +61,14 @@ export default class RouteStore {
       .filter(({action}) => RouteConstants.removeOne === action)
       .map(({payload: {url}}) => {
         return url;
+      });
+  }
+
+  handleLoadTopPathsSuccess () {
+    return this.updates
+      .filter(({action}) => RouteConstants.loadTopPathsSuccess === action)
+      .map(({payload: {topPaths}}) => {
+        return topPaths;
       });
   }
 }

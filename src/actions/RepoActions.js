@@ -3,21 +3,21 @@ import {default as Rx} from "rx";
 import {FuncSubject} from "rx-react";
 import {default as moment} from "moment";
 
-import * as GitHub from "../api/GitHub";
-import * as Parse from "../api/Parse";
+import * as GitHubAPI from "../api/GitHub";
+import * as ParseAPI from "../api/Parse";
 import {default as RepoConstants} from "../constants/RepoConstants";
 
 function getRepoInfo (rawOwnerRepoStr) {
   const ownerRepoStr = rawOwnerRepoStr.trim();
 
-  const repoInfoPms = GitHub.repoInfo(ownerRepoStr);
-  const lastYearCommitsCount = GitHub.lastYearCommitsCount(ownerRepoStr);
+  const repoInfoPms = GitHubAPI.repoInfo(ownerRepoStr);
+  const lastYearCommitsCount = GitHubAPI.lastYearCommitsCount(ownerRepoStr);
 
-  const issuesCountsInfo = Parse.issuesCountsInfo(ownerRepoStr);
+  const issuesCountsInfo = ParseAPI.issuesCountsInfo(ownerRepoStr);
   const openIssuesCount = issuesCountsInfo.then(data => data.openIssuesCount);
   const closedIssuesCount = issuesCountsInfo.then(data => data.closedIssuesCount);
 
-  const prsCountsInfo = Parse.pullRequestsCountsInfo(ownerRepoStr);
+  const prsCountsInfo = ParseAPI.pullRequestsCountsInfo(ownerRepoStr);
   const openPRsCount = prsCountsInfo.then(data => data.openPRsCount);
   const closedPRsCount = prsCountsInfo.then(data => data.closedPRsCount);
 

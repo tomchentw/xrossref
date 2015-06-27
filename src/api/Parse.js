@@ -11,3 +11,8 @@ export function pullRequestsCountsInfo (ownerRepoStr) {
     ownerRepoStr,
   });
 }
+
+export function getTopPaths () {
+  return Parse.Cloud.run("topPaths", {
+  });
+}

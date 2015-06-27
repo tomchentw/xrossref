@@ -12,6 +12,7 @@ class ReactRootContainer extends React.Component {
     return {
       repoActions: PropTypes.object,
       repoStore: PropTypes.object,
+      routeActions: PropTypes.object,
       routeStore: PropTypes.object,
       muiTheme: PropTypes.object,
     };
@@ -19,10 +20,16 @@ class ReactRootContainer extends React.Component {
 
   constructor(...args) {
     super(...args);
+    this.state = {
+      topPaths: [],
+    };
   }
 
   componentDidMount () {
-    const {currentUrl} = this.context.routeStore;
+    const {
+      currentUrl,
+      topPaths: topPathsObserverable,
+    } = this.context.routeStore;
     currentUrl.subscribe((url) => {
       location.hash = url;
       ga("send", "pageview", {
@@ -33,13 +40,19 @@ class ReactRootContainer extends React.Component {
       .take(1)
       .map(atob)
       .subscribe(this.context.repoActions.searchAll);
+
+    topPathsObserverable.subscribe((topPaths) => {
+      this.setState({topPaths});
+    });
+
+    this.context.routeActions.loadTopPaths();
   }
 
   render () {
     const {props, state} = this;
 
     return (
-      <ReactRoot>
+      <ReactRoot topPaths={state.topPaths}>
         <GAInitiailizer />
         <GitHubForkRibbon
           position="right"
