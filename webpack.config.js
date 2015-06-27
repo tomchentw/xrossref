@@ -69,6 +69,7 @@ var clientConfig = {
     ],
   },
   plugins: [
+    new webpack.EnvironmentPlugin("NODE_ENV"),
     isomorphicReactPlugin.clientPlugin,
     commonDefinePlugin,
     new ExtractTextPlugin("[name].css", {
@@ -152,6 +153,7 @@ var serverConfig = {
     ],
   },
   plugins: [
+    new webpack.EnvironmentPlugin("NODE_ENV"),
     isomorphicReactPlugin.serverPlugin,
     commonDefinePlugin,
     new webpack.ProvidePlugin({
@@ -182,6 +184,7 @@ var parseConfig = {
     ],
   },
   plugins: [
+    new webpack.EnvironmentPlugin("NODE_ENV"),
     commonDefinePlugin,
   ],
 };
