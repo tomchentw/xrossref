@@ -33,7 +33,7 @@ class ReactRootContainer extends React.Component {
     currentUrl.subscribe((url) => {
       location.hash = url;
       ga("send", "pageview", {
-        "page": `${ location.pathname }${ location.search }${ location.hash }`,
+        "page": location.hash,
       });
     });
     currentUrl
