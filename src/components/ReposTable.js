@@ -23,6 +23,7 @@ class ReposTable extends React.Component {
 
   static get propTypes () {
     return {
+      windowWidth: PropTypes.number.isRequired,
       repos: PropTypes.array.isRequired,
       onRepoRemove: PropTypes.func.isRequired,
     };
@@ -69,7 +70,7 @@ class ReposTable extends React.Component {
         rowHeight={50}
         rowGetter={rowGetter}
         rowsCount={repos.size}
-        width={1000}
+        width={props.windowWidth}
         height={600}
         headerHeight={50}>
         <Column
