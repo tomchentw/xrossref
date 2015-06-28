@@ -15,6 +15,8 @@ var IS_DEVELOPMENT = !IS_PRODUCTION;
 var BABEL_LOADER = "babel-loader?stage=1";
 
 var HOST = "localhost";
+var GOOGLE_ANALYTICS_TRACK_NUMBER;
+var GOOGLE_ANALYTICS_ID;
 
 var isomorphicReactPlugin = new IsomorphicReactPluginFactory({
   serverComponentPath: "../tmp/server.js",
@@ -22,9 +24,19 @@ var isomorphicReactPlugin = new IsomorphicReactPluginFactory({
   htmlOutputFilename: "index.html",
 });
 
+if (IS_DEVELOPMENT) {
+  // https://www.google.com/analytics/web/?hl=en#dashboard/default/a41104589w100513541p104405838/
+  GOOGLE_ANALYTICS_TRACK_NUMBER = "UA-41104589-15";
+  GOOGLE_ANALYTICS_ID = "104405838";
+} else {
+  // https://www.google.com/analytics/web/?hl=en#dashboard/default/a41104589w100577949p104471624/
+  GOOGLE_ANALYTICS_TRACK_NUMBER = "UA-41104589-16";
+  GOOGLE_ANALYTICS_ID = "104471624";
+}
+
 var commonDefinePlugin = new webpack.DefinePlugin({
-  "process.env.GOOGLE_ANALYTICS_TRACK_NUMBER": JSON.stringify("UA-41104589-15"),
-  "process.env.GOOGLE_ANALYTICS_ID": JSON.stringify("104405838"), // Get this from https://ga-dev-tools.appspot.com/query-explorer/
+  "process.env.GOOGLE_ANALYTICS_TRACK_NUMBER": JSON.stringify(GOOGLE_ANALYTICS_TRACK_NUMBER),
+  "process.env.GOOGLE_ANALYTICS_ID": JSON.stringify(GOOGLE_ANALYTICS_ID), // Get this from https://ga-dev-tools.appspot.com/query-explorer/
 });
 
 var clientConfig = {
