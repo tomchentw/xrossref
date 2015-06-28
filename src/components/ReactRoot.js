@@ -24,9 +24,14 @@ class ReactRoot extends React.Component {
     return new Immutable.List([
       { type: MenuItem.Types.SUBHEADER, text: "Top Paths" },
     ]).concat(topPaths.map(topPath => {
+      const text = atob(topPath.substr(1))
+        .split(",")
+        .map(ownerRepoStr => ownerRepoStr.split("/")[1])
+        .join(", ");
+
       return {
         route: topPath,
-        text: topPath,
+        text: text,
       };
     })).toJS();
   }
