@@ -25,10 +25,12 @@ class ReactRoot extends React.Component {
     return new Immutable.List([
       { type: MenuItem.Types.SUBHEADER, text: "Top Paths" },
     ]).concat(topPaths.map(topPath => {
-      const text = atob(topPath.substr(1))
-        .split(",")
-        .map(ownerRepoStr => ownerRepoStr.split("/")[1])
-        .join(", ");
+      // /#ZmFjZWJvb2svcmVhY3QsIGFuZ3VsYXIvYW5ndWxhci5qcw==
+      const hash = topPath.match(/\/?#(.+)/)[1]; // ZmFjZWJvb2svcmVhY3QsIGFuZ3VsYXIvYW5ndWxhci5qcw==
+      const text = atob(hash) // facebook/react, angular/angular.js
+        .split(/,\s+/) // ["facebook/react", "angular/angular.js"]
+        .map(ownerRepoStr => ownerRepoStr.match(/\/(\S+)/)[1]) // [react, angular.js]
+        .join(", "); // react, angular.js
 
       return {
         route: topPath,
