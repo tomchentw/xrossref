@@ -38,6 +38,7 @@
     "extract-text-webpack-plugin": "^0.8.2",
     "file-loader": "^0.8.4",
     "isomorphic-react-plugin-factory": "^1.0.1",
+    "normalize.css": "^3.0.3",
     "null-loader": "^0.1.1",
     "react-hot-loader": "^1.2.7",
     "style-loader": "^0.12.3",

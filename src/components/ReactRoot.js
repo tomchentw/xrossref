@@ -6,6 +6,7 @@ import {
   MenuItem,
 } from "material-ui";
 
+require("normalize.css");
 
 class ReactRoot extends React.Component {
 
