@@ -63,7 +63,7 @@ export default class Flux extends React.Component {
     this.createFluxContext();
     this.themeManager = new ThemeManager();
     this.themeManager.setPalette({
-      accent1Color: Colors.deepOrange500
+      accent1Color: Colors.deepOrange500,
     });
   }
 
