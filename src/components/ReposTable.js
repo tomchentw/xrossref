@@ -82,7 +82,7 @@ class ReposTable extends React.Component {
         />
         <Column
           label="Name"
-          width={100}
+          width={150}
           dataKey="name"
           cellDataGetter={immutableCellDataGetter}
         />
