@@ -23,6 +23,11 @@ class ReactRoot extends React.Component {
 
   getMenuItemsFromTopPaths (topPaths) {
     return new Immutable.List([
+      {
+        type: MenuItem.Types.LINK,
+        payload: "https://github.com/tomchentw/xrossref#credits",
+        text: "Credits",
+      },
       { type: MenuItem.Types.SUBHEADER, text: "Top Paths" },
     ]).concat(topPaths.map(topPath => {
       // /#ZmFjZWJvb2svcmVhY3QsIGFuZ3VsYXIvYW5ndWxhci5qcw==
