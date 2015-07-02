@@ -1,3 +1,6 @@
+import {parse as parseUrl} from "url";
+import {default as Rx} from "rx";
+import {FuncSubject} from "rx-react";
 import {default as React, PropTypes} from "react";
 import {default as ga, Initializer as GAInitiailizer} from "react-google-analytics";
 import {default as GitHubForkRibbon} from "react-github-fork-ribbon";
@@ -23,21 +26,29 @@ class ReactRootContainer extends React.Component {
     this.state = {
       topPaths: [],
     };
+    this.handleHashChange = FuncSubject.create();
   }
 
   componentDidMount () {
     const {
-      currentUrl,
+      currentHash,
       topPaths: topPathsObserverable,
     } = this.context.routeStore;
-    currentUrl.subscribe((url) => {
-      location.hash = url;
-      ga("send", "pageview", {
-        "page": location.hash,
+
+    this.handleHashChange
+      .merge(currentHash)
+      .subscribe((hash) => {
+        location.hash = hash;
+
+        ga("send", "pageview", {
+          "page": location.hash,
+        });
       });
-    });
-    currentUrl
-      .take(1)
+
+    Rx.Observable.fromEvent(window, "hashchange", args => {
+        return parseUrl(args[0].newURL).hash.substr(1);
+      })
+      .merge(currentHash.take(1))
       .map(atob)
       .subscribe(this.context.repoActions.searchAll);
 
@@ -52,7 +63,9 @@ class ReactRootContainer extends React.Component {
     const {props, state} = this;
 
     return (
-      <ReactRoot topPaths={state.topPaths}>
+      <ReactRoot
+        onHashChange={this.handleHashChange}
+        topPaths={state.topPaths}>
         <GAInitiailizer />
         <GitHubForkRibbon
           position="right"

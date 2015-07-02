@@ -5,30 +5,30 @@ import {default as RouteConstants} from "../constants/RouteConstants";
 
 export default class RouteStore {
   // our store expose 2 streams :
-  // `updates`: that should receive actions to be applied on our list of currentUrl
-  // `currentUrl`: an observable that will contains our up to date list of currentUrl
-  constructor (updates, storesMap, currentUrl) {
+  // `updates`: that should receive actions to be applied on our list of currentHash
+  // `currentHash`: an observable that will contains our up to date list of currentHash
+  constructor (updates, storesMap, currentHash) {
     this.updates = updates;
     this.storesMap = storesMap;
 
-    this.currentUrl = new Rx.BehaviorSubject(currentUrl);
+    this.currentHash = new Rx.BehaviorSubject(currentHash);
     this.topPaths = new Rx.BehaviorSubject([]);
   }
 
   register () {
     return Rx.Observable.merge(...[
-      this.registerCurrentUrl(),
+      this.registerCurrentHash(),
       this.registerTopPaths(),
     ]);
   }
 
-  registerCurrentUrl () {
+  registerCurrentHash () {
     return Rx.Observable.merge(...[
       this.handleSearchAll(),
       this.hanlleRemoveOne(),
       this.handleChangeUrl(),
     ])
-      .subscribe(this.currentUrl);
+      .subscribe(this.currentHash);
   }
 
   registerTopPaths () {

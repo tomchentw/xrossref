@@ -10,7 +10,7 @@ import {default as RouteStore} from "./stores/RouteStore";
 
 import {default as ReactRootContainer} from "./containers/ReactRootContainer";
 
-const CURRENT_URL = (
+const CURRENT_HASH = (
   "undefined" !== typeof window && location.hash ? location.hash.substr(1) : "ZmFjZWJvb2svcmVhY3QsIGFuZ3VsYXIvYW5ndWxhci5qcw=="
 );
 
@@ -24,7 +24,7 @@ export default class Flux extends React.Component {
     fluxContext.routeActions = new RouteActions(updates);
 
     fluxContext.repoStore = new RepoStore(updates, fluxContext);
-    fluxContext.routeStore = new RouteStore(updates, fluxContext, CURRENT_URL);
+    fluxContext.routeStore = new RouteStore(updates, fluxContext, CURRENT_HASH);
 
     this.subscriptions = Object.keys(fluxContext).map(key =>
       fluxContext[key].register()

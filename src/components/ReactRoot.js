@@ -12,6 +12,7 @@ class ReactRoot extends React.Component {
 
   static get propTypes () {
     return {
+      onHashChange: PropTypes.func.isRequired,
       topPaths: PropTypes.object.isRequired,
       children: PropTypes.element.isRequired,
     };
@@ -19,6 +20,7 @@ class ReactRoot extends React.Component {
 
   constructor(...args) {
     super(...args);
+    this.handleLeftNavChange = this.handleLeftNavChange.bind(this);
   }
 
   getMenuItemsFromTopPaths (topPaths) {
@@ -52,10 +54,14 @@ class ReactRoot extends React.Component {
         }, []);
 
       return {
-        route: topPath,
+        hash: hash,
         text: text,
       };
     })).toJS();
+  }
+
+  handleLeftNavChange (e, key, payload) {
+    this.props.onHashChange(payload.hash);
   }
 
   render () {
@@ -73,6 +79,7 @@ class ReactRoot extends React.Component {
           docked={false}
           isInitiallyOpen={false}
           menuItems={menuItems}
+          onChange={this.handleLeftNavChange}
         />
         {props.children}
       </div>

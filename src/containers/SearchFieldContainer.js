@@ -21,8 +21,8 @@ class SearchFieldContainer extends React.Component {
   }
 
   componentDidMount () {
-    const {currentUrl} = this.context.routeStore;
-    currentUrl
+    const {currentHash} = this.context.routeStore;
+    currentHash
       .take(1)
       .map(atob)
       .subscribe(searchTerm => {
