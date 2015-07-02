@@ -19,6 +19,14 @@ npm start
 Then open [http://localhost:8080](http://localhost:8080).
 
 
+## Credits
+
+* [flux-implementations-spreadsheet][flux-implementations-spreadsheet] from [social-tables-tech-13-top-flux-implementations][social-tables-tech-13-top-flux-implementations] on Medium
+
+[flux-implementations-spreadsheet]: https://docs.google.com/spreadsheets/d/1AddJl_vMnCHgdAbabMoIJ087xHuBwJ9jQMfA0mDD_D8/edit#gid=0
+[social-tables-tech-13-top-flux-implementations]: https://medium.com/social-tables-tech/we-compared-13-top-flux-implementations-you-won-t-believe-who-came-out-on-top-1063db32fe73
+
+
 ## Contributing
 
 [![devDependency Status][david-dm-image]][david-dm-url]
