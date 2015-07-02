@@ -35,7 +35,21 @@ class ReactRoot extends React.Component {
       const text = atob(hash) // facebook/react, angular/angular.js
         .split(/,\s+/) // ["facebook/react", "angular/angular.js"]
         .map(ownerRepoStr => ownerRepoStr.match(/\/(\S+)/)[1]) // [react, angular.js]
-        .join(", "); // react, angular.js
+        .reduce((acc, name, index, {length: querySize}) => {
+          const MAX_NAMES_LENGTH = 22;
+          const stringSize = (acc, str) => acc + str.length + 2;
+          const namesWithinLength = MAX_NAMES_LENGTH > acc.reduce(stringSize, 0);
+
+          if (namesWithinLength) {
+            acc.push(name); // [react, angular.js]
+          }
+          if (index + 1 === querySize) {
+            const namesStr = acc.join(", ").slice(0, MAX_NAMES_LENGTH);
+            acc = namesWithinLength ? namesStr : `${ namesStr } ... (${ querySize })`;
+            // "react, angular ... (2)"
+          }
+          return acc;
+        }, []);
 
       return {
         route: topPath,
