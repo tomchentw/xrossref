@@ -39,7 +39,7 @@ class ReactRoot extends React.Component {
         .map(ownerRepoStr => ownerRepoStr.match(/\/(\S+)/)[1]) // [react, angular.js]
         .reduce((acc, name, index, {length: querySize}) => {
           const MAX_NAMES_LENGTH = 22;
-          const stringSize = (acc, str) => acc + str.length + 2;
+          const stringSize = (count, str) => count + str.length + 2;
           const namesWithinLength = MAX_NAMES_LENGTH > acc.reduce(stringSize, 0);
 
           if (namesWithinLength) {
