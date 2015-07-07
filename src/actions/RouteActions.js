@@ -9,7 +9,7 @@ export default class RouteActions {
   constructor (updates) {
     this.updates = updates;
     //
-    this.changeUrl = FuncSubject.create();
+    this.changeHash = FuncSubject.create();
     this.loadTopPaths = FuncSubject.create();
   }
 
@@ -20,17 +20,17 @@ export default class RouteActions {
      * into the stream.
      */
     return Rx.Observable.merge(...[
-      this.applyChangeUrl(),
+      this.applyChangeHash(),
       this.applyLoadTopPaths(),
     ])
       .subscribe(this.updates);
   }
 
-  applyChangeUrl () {
-    return this.changeUrl.map((url) => {
+  applyChangeHash () {
+    return this.changeHash.map((hash) => {
       return {
-        action: RouteConstants.changeUrl,
-        payload: {url},
+        action: RouteConstants.changeHash,
+        payload: {hash},
       };
     });
   }

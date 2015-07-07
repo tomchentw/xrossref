@@ -26,7 +26,7 @@ export default class RouteStore {
     return Rx.Observable.merge(...[
       this.handleSearchAll(),
       this.hanlleRemoveOne(),
-      this.handleChangeUrl(),
+      this.handleChangeHash(),
     ])
       .subscribe(this.currentHash);
   }
@@ -56,11 +56,11 @@ export default class RouteStore {
       .map(btoa);
   }
 
-  handleChangeUrl () {
+  handleChangeHash () {
     return this.updates
-      .filter(({action}) => RouteConstants.removeOne === action)
-      .map(({payload: {url}}) => {
-        return url;
+      .filter(({action}) => RouteConstants.changeHash === action)
+      .map(({payload: {hash}}) => {
+        return hash;
       });
   }
 

@@ -26,7 +26,6 @@ class ReactRootContainer extends React.Component {
     this.state = {
       topPaths: [],
     };
-    this.handleHashChange = FuncSubject.create();
   }
 
   componentDidMount () {
@@ -35,8 +34,7 @@ class ReactRootContainer extends React.Component {
       topPaths: topPathsObserverable,
     } = this.context.routeStore;
 
-    this.handleHashChange
-      .merge(currentHash)
+    currentHash
       .subscribe((hash) => {
         location.hash = hash;
 
@@ -64,7 +62,7 @@ class ReactRootContainer extends React.Component {
 
     return (
       <ReactRoot
-        onHashChange={this.handleHashChange}
+        onHashChange={this.context.routeActions.changeHash}
         topPaths={state.topPaths}>
         <GAInitiailizer />
         <GitHubForkRibbon
