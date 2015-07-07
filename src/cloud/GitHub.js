@@ -1,6 +1,6 @@
 /*global Parse*/
 
-import {default as textToNumber} from "./textToNumber";
+import {parseTextIntoNum} from "./textUtils";
 import {default as fetchPage} from "./fetchPage";
 
 const openIssuesCountRegExp = /<span class\=\"octicon octicon-issue-opened\"><\/span>\s+(\S+) Open/;
@@ -15,8 +15,8 @@ Parse.Cloud.define("issuesCountsInfo", function({params: {ownerRepoStr}}, respon
   })
     .then(function({text}) {
       return {
-        openIssuesCount: textToNumber(text.match(openIssuesCountRegExp)[1]),
-        closedIssuesCount: textToNumber(text.match(closedIssuesCountRegExp)[1]),
+        openIssuesCount: parseTextIntoNum(text, openIssuesCountRegExp),
+        closedIssuesCount: parseTextIntoNum(text, closedIssuesCountRegExp),
       };
     })
     .then(response.success, response.error);
@@ -28,8 +28,8 @@ Parse.Cloud.define("PRsCountsInfo", function({params: {ownerRepoStr}}, response)
   })
     .then(function({text}) {
       return {
-        openPRsCount: textToNumber(text.match(openPRsCountRegExp)[1]),
-        closedPRsCount: textToNumber(text.match(closedPRsCountRegExp)[1]),
+        openPRsCount: parseTextIntoNum(text, openPRsCountRegExp),
+        closedPRsCount: parseTextIntoNum(text, closedPRsCountRegExp),
       };
     })
     .then(response.success, response.error);
