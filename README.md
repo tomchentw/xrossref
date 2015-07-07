@@ -6,8 +6,8 @@
 
 * [[tomchentw's React repos][tomchentws_react_repos]][tomchentws_react_repos]
 * [[React v.s. Angular v.s. Backbone v.s. Ember][react_vs_angular_vs_backbone_vs_ember]][react_vs_angular_vs_backbone_vs_ember]
-* [[13 Top Flux Implementations][13_top_flux_implementations]]
-* [[Comparison of CSS in JS Libraries][comparasion_of_css_in_js_libraries]]
+* [[13 Top Flux Implementations][13_top_flux_implementations]][13_top_flux_implementations]
+* [[Comparison of CSS in JS Libraries][comparasion_of_css_in_js_libraries]][comparasion_of_css_in_js_libraries]
 
 
 ## Development
