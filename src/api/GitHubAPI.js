@@ -46,5 +46,5 @@ export function lastYearCommitsCount (ownerRepoStr) {
     `https://api.github.com/repos/${ ownerRepoStr }/stats/participation`
   )
     .then(asJson)
-    .then(data => data.all.reduce((acc, c) => { return acc + c; }, 0));
+    .then(({all=[]}) => all.reduce((acc, c) => { return acc + c; }, 0));
 }
