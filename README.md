@@ -4,10 +4,10 @@
 
 ## Usage
 
-* [[tomchentw's React repos][tomchentws_react_repos]][tomchentws_react_repos]
-* [[React v.s. Angular v.s. Backbone v.s. Ember][react_vs_angular_vs_backbone_vs_ember]][react_vs_angular_vs_backbone_vs_ember]
-* [[13 Top Flux Implementations][13_top_flux_implementations]][13_top_flux_implementations]
-* [[Comparison of CSS in JS Libraries][comparasion_of_css_in_js_libraries]][comparasion_of_css_in_js_libraries]
+* [tomchentw's React repos][tomchentws_react_repos]
+* [React v.s. Angular v.s. Backbone v.s. Ember][react_vs_angular_vs_backbone_vs_ember]
+* [13 Top Flux Implementations][13_top_flux_implementations]
+* [Comparison of CSS in JS Libraries][comparasion_of_css_in_js_libraries]
 
 
 ## Development
@@ -24,7 +24,7 @@ Then open [http://localhost:8080](http://localhost:8080).
 ## Credits
 
 * [flux-implementations-spreadsheet][flux-implementations-spreadsheet] from [social-tables-tech-13-top-flux-implementations][social-tables-tech-13-top-flux-implementations] on Medium
-* [[Comparison of CSS in JS Libraries for React][comparasion_of_css_in_js_libraries_for_react]] from [Radium][Radium]
+* [Comparison of CSS in JS Libraries for React][comparasion_of_css_in_js_libraries_for_react] from [Radium][Radium]
 
 [flux-implementations-spreadsheet]: https://docs.google.com/spreadsheets/d/1AddJl_vMnCHgdAbabMoIJ087xHuBwJ9jQMfA0mDD_D8/edit#gid=0
 [social-tables-tech-13-top-flux-implementations]: https://medium.com/social-tables-tech/we-compared-13-top-flux-implementations-you-won-t-believe-who-came-out-on-top-1063db32fe73
