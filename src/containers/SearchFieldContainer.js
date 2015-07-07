@@ -23,7 +23,6 @@ class SearchFieldContainer extends React.Component {
   componentDidMount () {
     const {currentHash} = this.context.routeStore;
     currentHash
-      .take(1)
       .map(atob)
       .subscribe(searchTerm => {
         this.setState({ searchTerm });
