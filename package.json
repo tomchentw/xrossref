@@ -25,6 +25,9 @@
     "url": "https://github.com/tomchentw/xrossref/issues"
   },
   "homepage": "https://github.com/tomchentw/xrossref#readme",
+  "engines": {
+    "node": "~0.12"
+  },
   "devDependencies": {
     "atob": "^1.1.2",
     "babel": "^5.6.14",
