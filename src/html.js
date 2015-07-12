@@ -13,7 +13,7 @@ class ReactHtml extends React.Component {
   }
 
   render () {
-    const {props, state} = this,
+    const {props} = this,
           {clientAssets} = props,
           innerHtml = {__html: props.componentString};
 

@@ -40,7 +40,7 @@ class SearchFieldContainer extends React.Component {
   }
 
   render () {
-    const {props, state} = this;
+    const {state} = this;
 
     return (
       <TextField

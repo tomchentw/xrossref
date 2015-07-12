@@ -1,6 +1,5 @@
 import {parse as parseUrl} from "url";
 import {default as Rx} from "rx";
-import {FuncSubject} from "rx-react";
 import {default as React, PropTypes} from "react";
 import {default as ga, Initializer as GAInitiailizer} from "react-google-analytics";
 import {default as GitHubForkRibbon} from "react-github-fork-ribbon";
@@ -58,7 +57,7 @@ class ReactRootContainer extends React.Component {
   }
 
   render () {
-    const {props, state} = this;
+    const {state} = this;
 
     return (
       <ReactRoot

@@ -65,7 +65,7 @@ class ReactRoot extends React.Component {
   }
 
   render () {
-    const {props, state} = this;
+    const {props} = this;
     const menuItems = this.getMenuItemsFromTopPaths(props.topPaths);
 
     return (

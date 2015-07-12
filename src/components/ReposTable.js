@@ -61,7 +61,7 @@ class ReposTable extends React.Component {
   /*eslint-enable no-unused-vars, no-undef*/
 
   render () {
-    const {props, state} = this;
+    const {props} = this;
     const {repos} = props;
     const rowGetter = (rowIndex) => repos.get(rowIndex);
 

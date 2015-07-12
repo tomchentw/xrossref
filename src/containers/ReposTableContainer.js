@@ -39,7 +39,7 @@ class ReposTableContainer extends React.Component {
   }
 
   render () {
-    const {props, state} = this;
+    const {state} = this;
 
     return (
       <ReposTable
