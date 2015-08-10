@@ -8,6 +8,9 @@ import {
 
 require("normalize.css");
 
+const HASH_REGEX = /\/?#(.+)/;
+const REPO_NAME_REGEX = /\/(\S+)/;
+
 class ReactRoot extends React.Component {
 
   static get propTypes () {
@@ -32,11 +35,24 @@ class ReactRoot extends React.Component {
       },
       { type: MenuItem.Types.SUBHEADER, text: "Top Paths" },
     ]).concat(topPaths.map(topPath => {
+      if (!HASH_REGEX.test(topPath)) {
+        return {
+          hash: "",
+          text: topPath,
+        };
+      }
       // /#ZmFjZWJvb2svcmVhY3QsIGFuZ3VsYXIvYW5ndWxhci5qcw==
       const hash = topPath.match(/\/?#(.+)/)[1]; // ZmFjZWJvb2svcmVhY3QsIGFuZ3VsYXIvYW5ndWxhci5qcw==
       const text = atob(hash) // facebook/react, angular/angular.js
         .split(/,\s+/) // ["facebook/react", "angular/angular.js"]
-        .map(ownerRepoStr => ownerRepoStr.match(/\/(\S+)/)[1]) // [react, angular.js]
+        .map(ownerRepoStr => {
+          if (REPO_NAME_REGEX.test(ownerRepoStr)) {
+            return ownerRepoStr.match(/\/(\S+)/)[1];
+          } else {
+            return ownerRepoStr;
+          }
+        })
+        // [react, angular.js]
         .reduce((acc, name, index, {length: querySize}) => {
           const MAX_NAMES_LENGTH = 22;
           const stringSize = (count, str) => count + str.length + 2;
