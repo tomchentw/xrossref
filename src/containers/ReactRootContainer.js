@@ -42,8 +42,8 @@ class ReactRootContainer extends React.Component {
         });
       });
 
-    Rx.Observable.fromEvent(window, "hashchange", args => {
-        return parseUrl(args[0].newURL).hash.substr(1);
+    Rx.Observable.fromEvent(window, "hashchange", event => {
+        return parseUrl(event.newURL).hash.substr(1);
       })
       .merge(currentHash.take(1))
       .map(atob)

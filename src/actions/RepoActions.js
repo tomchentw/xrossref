@@ -79,9 +79,9 @@ export default class RepoActions {
             };
           });
         })
-        .scan(new Immutable.List(), (list, {repoInfo, index}) => {
+        .scan((list, {repoInfo, index}) => {
           return list.set(index, repoInfo);
-        })
+        }, new Immutable.List())
         .map((repos) => {
           return {
             action: RepoConstants.searchAllSuccess,
