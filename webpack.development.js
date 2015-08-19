@@ -10,38 +10,26 @@ var IsomorphicReactPluginFactory = require("isomorphic-react-plugin-factory");
     
 var publicDirPath = Path.resolve(__dirname, "./public");
 
-var IS_PRODUCTION = "production" === process.env.NODE_ENV;
-var IS_DEVELOPMENT = !IS_PRODUCTION;
-var BABEL_LOADER = "babel-loader?stage=1";
-
-var HOST = "localhost";
-var GOOGLE_ANALYTICS_TRACK_NUMBER;
-var GOOGLE_ANALYTICS_ID;
-
 var isomorphicReactPlugin = new IsomorphicReactPluginFactory({
   serverComponentPath: "../tmp/server.js",
   serverMarkupPath: "../tmp/html.js",
   htmlOutputFilename: "index.html",
 });
 
-if (IS_DEVELOPMENT) {
-  // https://www.google.com/analytics/web/?hl=en#dashboard/default/a41104589w100513541p104405838/
-  GOOGLE_ANALYTICS_TRACK_NUMBER = "UA-41104589-15";
-  GOOGLE_ANALYTICS_ID = "104405838";
-} else {
-  // https://www.google.com/analytics/web/?hl=en#dashboard/default/a41104589w100577949p104471624/
-  GOOGLE_ANALYTICS_TRACK_NUMBER = "UA-41104589-16";
-  GOOGLE_ANALYTICS_ID = "104471624";
-}
-
 var commonDefinePlugin = new webpack.DefinePlugin({
-  "process.env.GOOGLE_ANALYTICS_TRACK_NUMBER": JSON.stringify(GOOGLE_ANALYTICS_TRACK_NUMBER),
-  "process.env.GOOGLE_ANALYTICS_ID": JSON.stringify(GOOGLE_ANALYTICS_ID), // Get this from https://ga-dev-tools.appspot.com/query-explorer/
+// https://www.google.com/analytics/web/?hl=en#dashboard/default/a41104589w100513541p104405838/
+  "process.env.GOOGLE_ANALYTICS_TRACK_NUMBER": JSON.stringify("UA-41104589-15"),
+  "process.env.GOOGLE_ANALYTICS_ID": JSON.stringify("104405838"), // Get this from https://ga-dev-tools.appspot.com/query-explorer/
 });
 
 var clientConfig = {
   entry: {
-    "assets/client": "./src/client.js",
+  // http://webpack.github.io/docs/hot-module-replacement-with-webpack.html#tutorial
+    "assets/client": [
+      require.resolve("webpack-dev-server/client/") + "?http://localhost:8080",
+      "webpack/hot/dev-server",
+      "./src/client.js",
+    ],
   },
   output: {
     path: publicDirPath,
@@ -52,7 +40,7 @@ var clientConfig = {
       {
         test: /\.js(x?)$/,
         exclude: /node_modules/,
-        loaders: [BABEL_LOADER],
+        loaders: ["react-hot-loader", "babel-loader"],
       },
       {
         test: /\.css$/,
@@ -70,10 +58,11 @@ var clientConfig = {
   },
   plugins: [
     new webpack.EnvironmentPlugin("NODE_ENV"),
+    new webpack.HotModuleReplacementPlugin(),
     isomorphicReactPlugin.clientPlugin,
     commonDefinePlugin,
     new ExtractTextPlugin("[name].css", {
-      disable: IS_DEVELOPMENT,
+      disable: true,
     }),
     new webpack.ProvidePlugin({
       "Promise": "bluebird",
@@ -81,34 +70,6 @@ var clientConfig = {
     }),
   ],
 };
-
-if (IS_DEVELOPMENT) {
-  // http://webpack.github.io/docs/hot-module-replacement-with-webpack.html#tutorial
-  Object.keys(clientConfig.entry).forEach(function (key) {
-    clientConfig.entry[key] = this.concat(clientConfig.entry[key]);
-  }, [
-    require.resolve("webpack-dev-server/client/") + "?http://" + HOST + ":8080",
-    "webpack/hot/dev-server"
-  ]);
-
-  clientConfig.module.loaders[0].loaders.unshift("react-hot-loader");
-
-  clientConfig.plugins.push(
-    new webpack.HotModuleReplacementPlugin()
-  )
-} else {
-  clientConfig.entry = Object.keys(clientConfig.entry).reduce(function (acc, key) {
-    acc[key.replace(/^assets\//, "")] = clientConfig.entry[key];
-    return acc;
-  }, {});
-
-  clientConfig.output.publicPath = "assets/[hash]/";
-  clientConfig.output.path = Path.resolve(publicDirPath, "./" + clientConfig.output.publicPath);
-
-  clientConfig.plugins.push(
-    new webpack.optimize.DedupePlugin()
-  );
-}
 
 var serverConfig = {
   entry: {
@@ -142,7 +103,7 @@ var serverConfig = {
       {
         test: /\.js(x?)$/,
         exclude: /node_modules/,
-        loader: BABEL_LOADER,
+        loader: "babel-loader",
       },
       {
         test: /\.css$/,
@@ -179,7 +140,7 @@ var parseConfig = {
       {
         test: /\.js(x?)$/,
         exclude: /node_modules/,
-        loader: BABEL_LOADER,
+        loader: "babel-loader",
       },
     ],
   },
@@ -196,8 +157,8 @@ var webpackConfigsArray = [
 ];
 
 webpackConfigsArray.devServer = {
-  hot: IS_DEVELOPMENT,
-  host: HOST,
+  hot: true,
+  host: "localhost",
   contentBase: publicDirPath,
 };
 
