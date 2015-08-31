@@ -4,7 +4,7 @@
   "description": "GitHub repos cross compare references",
   "main": "index.js",
   "scripts": {
-    "clean": "rimraf ./public/index.html ./public/assets ./public/tmp",
+    "clean": "rimraf ./public/index.html ./public/assets ./public/tmp ./cloud",
     "prebuild": "npm run clean",
     "build": "NODE_ENV=production reacthtmlpack buildToDir ./public ./views/*.html.js",
     "predev": "npm run clean",
