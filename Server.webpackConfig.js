@@ -29,12 +29,13 @@ var externals = [
 
 module.exports = {
   context: __dirname,
-  // extra "main": "./src/parse.js",
+  reacthtmlpackExtraEntry: {
+    "../cloud/main": "./src/parse.js",
+  },
   output: {
     path: Path.resolve(__dirname, "./public"),
     filename: "[name].js",
-    library: true,
-    libraryTarget: "commonjs2",
+    libraryTarget: "umd",
   },
   target: "node",
   externals: externals,
