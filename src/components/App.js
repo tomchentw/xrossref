@@ -11,7 +11,7 @@ require("normalize.css");
 const HASH_REGEX = /\/?#(.+)/;
 const REPO_NAME_REGEX = /\/(\S+)/;
 
-class ReactRoot extends React.Component {
+class App extends React.Component {
 
   static get propTypes () {
     return {
@@ -103,4 +103,4 @@ class ReactRoot extends React.Component {
   }
 }
 
-export default ReactRoot;
+export default App;

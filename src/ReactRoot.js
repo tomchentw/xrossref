@@ -8,13 +8,13 @@ import {default as RouteActions} from "./actions/RouteActions";
 import {default as RepoStore} from "./stores/RepoStore";
 import {default as RouteStore} from "./stores/RouteStore";
 
-import {default as ReactRootContainer} from "./containers/ReactRootContainer";
+import {default as AppContainer} from "./containers/AppContainer";
 
 const CURRENT_HASH = (
   "undefined" !== typeof window && location.hash ? location.hash.substr(1) : "ZmFjZWJvb2svcmVhY3QsIGFuZ3VsYXIvYW5ndWxhci5qcw=="
 );
 
-export default class Flux extends React.Component {
+export default class ReactRoot extends React.Component {
 
   createFluxContext () {
     const fluxContext = this.fluxContext = {};
@@ -75,7 +75,7 @@ export default class Flux extends React.Component {
 
   render () {
     return (
-      <ReactRootContainer />
+      <AppContainer />
     );
   }
 }

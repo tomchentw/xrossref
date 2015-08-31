@@ -4,11 +4,11 @@ import {default as React, PropTypes} from "react";
 import {default as ga, Initializer as GAInitiailizer} from "react-google-analytics";
 import {default as GitHubForkRibbon} from "react-github-fork-ribbon";
 
-import {default as ReactRoot} from "../components/ReactRoot";
+import {default as App} from "../components/App";
 import {default as ReposTableContainer} from "./ReposTableContainer";
 import {default as SearchFieldContainer} from "./SearchFieldContainer";
 
-class ReactRootContainer extends React.Component {
+class AppContainer extends React.Component {
 
   static get contextTypes () {
     return {
@@ -60,7 +60,7 @@ class ReactRootContainer extends React.Component {
     const {state} = this;
 
     return (
-      <ReactRoot
+      <App
         onHashChange={this.context.routeActions.changeHash}
         topPaths={state.topPaths}>
         <GAInitiailizer />
@@ -72,9 +72,9 @@ class ReactRootContainer extends React.Component {
         </GitHubForkRibbon>
         <SearchFieldContainer />
         <ReposTableContainer />
-      </ReactRoot>
+      </App>
     );
   }
 }
 
-export default ReactRootContainer;
+export default AppContainer;

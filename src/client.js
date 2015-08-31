@@ -5,7 +5,7 @@ import {default as React} from "react";
 import {default as ga} from "react-google-analytics";
 import {default as injectTapEventPlugin} from "react-tap-event-plugin";
 
-import {default as Flux} from "./Flux";
+import {default as ReactRoot} from "./ReactRoot";
 
 ga("create", process.env.GOOGLE_ANALYTICS_TRACK_NUMBER, "auto");
 
@@ -18,9 +18,9 @@ injectTapEventPlugin();
 Parse.initialize("DZVj6JFa1zjlLZBEkShSxWKDYtbeShS0PHLeZ0Sk", "gc4hhkwulJfCaT8Ti1gJJIfI42yD1RYobdmbqly8");
 
 React.render((
-  <Flux />
+  <ReactRoot />
 ),
   document.getElementById("react-container")
 );
 
-Debug.enable("ReposTable,ReactRootContainer");
+Debug.enable("ReposTable,AppContainer");
