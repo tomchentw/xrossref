@@ -31,11 +31,13 @@ module.exports = {
     port: 8080,
     host: "localhost",
     contentBase: Path.resolve(__dirname, "./public"),
+    publicPath: "/assets/",
     hot: true,
   },
   context: __dirname,
   output: {
-    path: Path.resolve(__dirname, "./public"),
+    path: Path.resolve(__dirname, "./public/assets"),
+    publicPath: "assets/",
     filename: FILENAME_FORMAT,
   },
   module: {

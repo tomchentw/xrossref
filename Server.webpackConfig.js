@@ -31,10 +31,10 @@ var externals = [
 module.exports = {
   context: __dirname,
   reacthtmlpackExtraEntry: {
-    "../cloud/main": "./src/parse.js",
+    "../../cloud/main": "./src/parse.js",
   },
   output: {
-    path: Path.resolve(__dirname, "./public"),
+    path: Path.resolve(__dirname, "./public/assets"),
     filename: "[name].js",
     libraryTarget: "umd",
   },

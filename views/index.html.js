@@ -14,7 +14,7 @@ export default (
       <title>Xrossref | tomchentw</title>
       <link href="//fonts.googleapis.com/css?family=Roboto:400,300,500"/>
       <WebpackStyleEntry
-        chunkName="assets/client"
+        chunkName="client"
         chunkFilepath="./src/client.js"
         configFilepath="../Client.webpackConfig.js"
       />
@@ -24,13 +24,13 @@ export default (
       <ReactRenderToStringEntry
         id="react-container"
         tagName="div"
-        chunkName="tmp/server"
+        chunkName="server"
         chunkFilepath="./src/ReactRoot.js"
         configFilepath="../Server.webpackConfig.js"
       />
       <script src="//www.parsecdn.com/js/parse-1.4.2.min.js" />
       <WebpackScriptEntry
-        chunkName="assets/client"
+        chunkName="client"
         chunkFilepath="./src/client.js"
         configFilepath="../Client.webpackConfig.js"
       />

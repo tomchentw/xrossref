@@ -4,7 +4,7 @@
   "description": "GitHub repos cross compare references",
   "main": "index.js",
   "scripts": {
-    "clean": "rimraf ./public/index.html ./public/assets ./public/tmp ./cloud",
+    "clean": "rimraf ./public/index.html ./public/assets ./cloud",
     "prebuild": "npm run clean",
     "build": "NODE_ENV=production reacthtmlpack buildToDir ./public ./views/*.html.js",
     "predev": "npm run clean",
@@ -46,7 +46,7 @@
     "normalize.css": "^3.0.3",
     "null-loader": "^0.1.1",
     "react-hot-loader": "^1.2.7",
-    "reacthtmlpack": "^0.2.1",
+    "reacthtmlpack": "^0.2.3",
     "rimraf": "^2.4.3",
     "style-loader": "^0.12.3",
     "tomchentw-npm-dev": "^3.0.0",
