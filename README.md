@@ -20,6 +20,8 @@ npm start
 
 Then open [http://localhost:8080](http://localhost:8080).
 
+Also hosted on [Parse Cloud Code](https://xrossref.parseapp.com).
+
 
 ## Credits
 

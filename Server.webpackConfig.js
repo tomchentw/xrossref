@@ -23,6 +23,7 @@ var externals = [
   return acc.concat(
     Object.keys(dependencies)
       .filter(function (key) { return -1 === ["react-fa", "fixed-data-table"].indexOf(key); })
+      .filter(function (key) { return -1 === ["jsrsasign"].indexOf(key); })
       .map(function (key) { return new RegExp("^" + key + "(/\\S+)?$"); })
   );
 }, []);
