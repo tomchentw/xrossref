@@ -46,7 +46,7 @@
     "normalize.css": "^3.0.3",
     "null-loader": "^0.1.1",
     "react-hot-loader": "^1.2.7",
-    "reacthtmlpack": "^0.2.3",
+    "reacthtmlpack": "^0.3.1",
     "rimraf": "^2.4.3",
     "style-loader": "^0.12.3",
     "tomchentw-npm-dev": "^3.0.0",

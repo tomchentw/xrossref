@@ -3,6 +3,7 @@ import {
 } from "react";
 
 import {
+  WebpackNullEntry,
   WebpackScriptEntry,
   WebpackStyleEntry,
   ReactRenderToStringEntry,
@@ -33,6 +34,11 @@ export default (
         chunkName="client"
         chunkFilepath="./src/client.js"
         configFilepath="../Client.webpackConfig.js"
+      />
+      <WebpackNullEntry
+        chunkName="../../cloud/main"
+        chunkFilepath="./src/parse.js"
+        configFilepath="../Parse.webpackConfig.js"
       />
     </body>
   </html>

@@ -22,26 +22,14 @@ if ("production" === process.env.NODE_ENV) {
   PRODUCTION_PLUGINS = [];
 }
 
-const externals = [
-  require("./package.json").dependencies,
-].reduce((acc, dependencies) => {
-  return acc.concat(
-    Object.keys(dependencies)
-      .filter(key => -1 === ["react-fa", "fixed-data-table"].indexOf(key))
-      .map(key => new RegExp(`^${ key }(\S+)?\$`))
-  );
-}, []);
-
 export default {
   context: __dirname,
   output: {
     path: resolvePath(__dirname, "./public/assets"),
     pathinfo: "production" !== process.env.NODE_ENV,
     filename: "[name].js",
-    libraryTarget: "commonjs2",
   },
   target: "node",
-  externals: externals,
   module: {
     loaders: [
       {
