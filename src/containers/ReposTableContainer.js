@@ -1,22 +1,26 @@
-import {default as React, PropTypes} from "react";
-import {default as Rx} from "rx";
+import {
+  default as React,
+  Component,
+  PropTypes,
+} from "react";
 
-import {default as ReposTable} from "../components/ReposTable";
+import {
+  default as Rx,
+} from "rx";
 
-class ReposTableContainer extends React.Component {
+import {
+  default as ReposTable,
+} from "../components/ReposTable";
 
-  static get contextTypes () {
-    return {
-      repoActions: PropTypes.object,
-      repoStore: PropTypes.object,
-    };
+export default class ReposTableContainer extends Component {
+
+  static contextTypes = {
+    repoActions: PropTypes.object,
+    repoStore: PropTypes.object,
   }
 
-  constructor(...args) {
-    super(...args);
-    this.state = {
-      windowWidth: 1000,
-    };
+  state = {
+    windowWidth: 1000,
   }
 
   componentWillMount () {
@@ -50,5 +54,3 @@ class ReposTableContainer extends React.Component {
     );
   }
 }
-
-export default ReposTableContainer;

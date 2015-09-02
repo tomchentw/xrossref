@@ -1,5 +1,13 @@
-import {default as Immutable} from "immutable";
-import {default as React, PropTypes} from "react";
+import {
+  default as Immutable,
+} from "immutable";
+
+import {
+  default as React,
+  Component,
+  PropTypes,
+} from "react";
+
 import {
   AppBar,
   LeftNav,
@@ -11,19 +19,12 @@ require("normalize.css");
 const HASH_REGEX = /\/?#(.+)/;
 const REPO_NAME_REGEX = /\/(\S+)/;
 
-class App extends React.Component {
+export default class App extends Component {
 
-  static get propTypes () {
-    return {
-      onHashChange: PropTypes.func.isRequired,
-      topPaths: PropTypes.object.isRequired,
-      children: PropTypes.node.isRequired,
-    };
-  }
-
-  constructor(...args) {
-    super(...args);
-    this.handleLeftNavChange = this.handleLeftNavChange.bind(this);
+  static propTypes = {
+    onHashChange: PropTypes.func.isRequired,
+    topPaths: PropTypes.object.isRequired,
+    children: PropTypes.node.isRequired,
   }
 
   getMenuItemsFromTopPaths (topPaths) {
@@ -76,7 +77,7 @@ class App extends React.Component {
     })).toJS();
   }
 
-  handleLeftNavChange (e, key, payload) {
+  handleLeftNavChange = (e, key, payload) => {
     this.props.onHashChange(payload.hash);
   }
 
@@ -102,5 +103,3 @@ class App extends React.Component {
     );
   }
 }
-
-export default App;

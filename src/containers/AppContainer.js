@@ -1,31 +1,56 @@
-import {parse as parseUrl} from "url";
-import {default as Rx} from "rx";
-import {default as Immutable} from "immutable";
-import {default as React, PropTypes} from "react";
-import {default as ga, Initializer as GAInitiailizer} from "react-google-analytics";
-import {default as GitHubForkRibbon} from "react-github-fork-ribbon";
+import {
+  parse as parseUrl,
+} from "url";
 
-import {default as App} from "../components/App";
-import {default as ReposTableContainer} from "./ReposTableContainer";
-import {default as SearchFieldContainer} from "./SearchFieldContainer";
+import {
+  default as Rx,
+  Observable,
+} from "rx";
 
-class AppContainer extends React.Component {
+import {
+  default as Immutable,
+  List,
+} from "immutable";
 
-  static get contextTypes () {
-    return {
-      repoActions: PropTypes.object,
-      repoStore: PropTypes.object,
-      routeActions: PropTypes.object,
-      routeStore: PropTypes.object,
-      muiTheme: PropTypes.object,
-    };
+import {
+  default as React,
+  Component,
+  PropTypes,
+} from "react";
+
+import {
+  default as ga,
+  Initializer as GAInitiailizer,
+} from "react-google-analytics";
+
+import {
+  default as GitHubForkRibbon,
+} from "react-github-fork-ribbon";
+
+import {
+  default as App,
+} from "../components/App";
+
+import {
+  default as ReposTableContainer,
+} from "./ReposTableContainer";
+
+import {
+  default as SearchFieldContainer,
+} from "./SearchFieldContainer";
+
+export default class AppContainer extends Component {
+
+  static contextTypes = {
+    repoActions: PropTypes.object,
+    repoStore: PropTypes.object,
+    routeActions: PropTypes.object,
+    routeStore: PropTypes.object,
+    muiTheme: PropTypes.object,
   }
 
-  constructor(...args) {
-    super(...args);
-    this.state = {
-      topPaths: new Immutable.List(),
-    };
+  state = {
+    topPaths: new List(),
   }
 
   componentDidMount () {
@@ -43,7 +68,7 @@ class AppContainer extends React.Component {
         });
       });
 
-    Rx.Observable.fromEvent(window, "hashchange", event => {
+    Observable.fromEvent(window, "hashchange", event => {
         return parseUrl(event.newURL).hash.substr(1);
       })
       .merge(currentHash.take(1))
@@ -77,5 +102,3 @@ class AppContainer extends React.Component {
     );
   }
 }
-
-export default AppContainer;

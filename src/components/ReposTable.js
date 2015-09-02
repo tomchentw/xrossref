@@ -1,7 +1,21 @@
-import {default as React, PropTypes} from "react";
-import {Table, Column} from "fixed-data-table";
-import {default as Icon} from "react-fa";
-import {default as Timestamp} from "react-time";
+import {
+  default as React,
+  Component,
+  PropTypes,
+} from "react";
+
+import {
+  Table,
+  Column,
+} from "fixed-data-table";
+
+import {
+  default as Icon,
+} from "react-fa";
+
+import {
+  default as Timestamp,
+} from "react-time";
 
 require("fixed-data-table/dist/fixed-data-table-base.css");
 require("fixed-data-table/dist/fixed-data-table-style.css");
@@ -15,19 +29,12 @@ function immutableCellDataGetter (
 }
 /*eslint-enable no-unused-vars, no-undef*/
 
-class ReposTable extends React.Component {
+export default class ReposTable extends Component {
 
-  constructor(...args) {
-    super(...args);
-    this.renderRemoveCell = this.renderRemoveCell.bind(this);
-  }
-
-  static get propTypes () {
-    return {
-      windowWidth: PropTypes.number.isRequired,
-      repos: PropTypes.object.isRequired,
-      onRepoRemove: PropTypes.func.isRequired,
-    };
+  static propTypes = {
+    windowWidth: PropTypes.number.isRequired,
+    repos: PropTypes.object.isRequired,
+    onRepoRemove: PropTypes.func.isRequired,
   }
 
   /*eslint-disable no-unused-vars, no-undef*/
@@ -42,7 +49,7 @@ class ReposTable extends React.Component {
     return (
       <Icon
         name="times"
-        onClick={this.props.onRepoRemove.bind(null, cellData)}
+        onClick={() => this.props.onRepoRemove(cellData)}
       />
     );
   }
@@ -153,5 +160,3 @@ class ReposTable extends React.Component {
     );
   }
 }
-
-export default ReposTable;

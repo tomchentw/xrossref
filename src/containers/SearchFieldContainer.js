@@ -1,23 +1,22 @@
-import {default as React, PropTypes} from "react";
-import {TextField} from "material-ui";
+import {
+  default as React,
+  Component,
+  PropTypes
+} from "react";
 
-class SearchFieldContainer extends React.Component {
+import {
+  TextField,
+} from "material-ui";
 
-  static get contextTypes () {
-    return {
-      muiTheme: PropTypes.object,
-      repoActions: PropTypes.object,
-      routeStore: PropTypes.object,
-    };
+export default class SearchFieldContainer extends Component {
+
+  static contextTypes = {
+    muiTheme: PropTypes.object,
+    repoActions: PropTypes.object,
+    routeStore: PropTypes.object,
   }
 
-  constructor(...args) {
-    super(...args);
-
-    this.state = {
-    };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleEnterKeyDown = this.handleEnterKeyDown.bind(this);
+  state = {
   }
 
   componentDidMount () {
@@ -29,13 +28,13 @@ class SearchFieldContainer extends React.Component {
       });
   }
 
-  handleChange () {
+  handleChange = () => {
     this.setState({
       searchTerm: this.refs.searchField.getValue(),
     });
   }
 
-  handleEnterKeyDown () {
+  handleEnterKeyDown = () => {
     this.context.repoActions.searchAll(this.state.searchTerm);
   }
 
@@ -54,5 +53,3 @@ class SearchFieldContainer extends React.Component {
     );
   }
 }
-
-export default SearchFieldContainer;
