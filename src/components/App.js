@@ -17,7 +17,7 @@ class App extends React.Component {
     return {
       onHashChange: PropTypes.func.isRequired,
       topPaths: PropTypes.object.isRequired,
-      children: PropTypes.element.isRequired,
+      children: PropTypes.node.isRequired,
     };
   }
 
