@@ -1,4 +1,5 @@
 import {default as Rx} from "rx";
+import {default as Immutable} from "immutable";
 
 import {default as RepoConstants} from "../constants/RepoConstants";
 import {default as RouteConstants} from "../constants/RouteConstants";
@@ -12,7 +13,7 @@ export default class RouteStore {
     this.storesMap = storesMap;
 
     this.currentHash = new Rx.BehaviorSubject(currentHash);
-    this.topPaths = new Rx.BehaviorSubject([]);
+    this.topPaths = new Rx.BehaviorSubject(new Immutable.List());
   }
 
   register () {

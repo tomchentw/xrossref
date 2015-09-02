@@ -1,5 +1,6 @@
 import {parse as parseUrl} from "url";
 import {default as Rx} from "rx";
+import {default as Immutable} from "immutable";
 import {default as React, PropTypes} from "react";
 import {default as ga, Initializer as GAInitiailizer} from "react-google-analytics";
 import {default as GitHubForkRibbon} from "react-github-fork-ribbon";
@@ -23,7 +24,7 @@ class AppContainer extends React.Component {
   constructor(...args) {
     super(...args);
     this.state = {
-      topPaths: [],
+      topPaths: new Immutable.List(),
     };
   }
 
