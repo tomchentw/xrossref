@@ -3,7 +3,8 @@ import {Table, Column} from "fixed-data-table";
 import {default as Icon} from "react-fa";
 import {default as Timestamp} from "react-time";
 
-require("fixed-data-table/dist/fixed-data-table.css");
+require("fixed-data-table/dist/fixed-data-table-base.css");
+require("fixed-data-table/dist/fixed-data-table-style.css");
 
 /*eslint-disable no-unused-vars, no-undef*/
 function immutableCellDataGetter (
@@ -24,7 +25,7 @@ class ReposTable extends React.Component {
   static get propTypes () {
     return {
       windowWidth: PropTypes.number.isRequired,
-      repos: PropTypes.array.isRequired,
+      repos: PropTypes.object.isRequired,
       onRepoRemove: PropTypes.func.isRequired,
     };
   }
@@ -69,7 +70,7 @@ class ReposTable extends React.Component {
       <Table
         rowHeight={50}
         rowGetter={rowGetter}
-        rowsCount={repos.size}
+        rowsCount={repos.count()}
         width={props.windowWidth}
         height={600}
         headerHeight={50}>

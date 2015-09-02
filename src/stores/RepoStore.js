@@ -1,4 +1,5 @@
 import {default as Rx} from "rx";
+import {default as Immutable} from "immutable";
 
 import {default as RepoConstants} from "../constants/RepoConstants";
 
@@ -9,7 +10,7 @@ export default class RepoStore {
   constructor (updates, storesMap) {
     this.updates = updates;
     this.storesMap = storesMap;
-    this.repos = new Rx.BehaviorSubject([]);
+    this.repos = new Rx.BehaviorSubject(new Immutable.List());
   }
 
   register () {
