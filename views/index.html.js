@@ -13,6 +13,8 @@ export default (
   <html>
     <head>
       <title>Xrossref | tomchentw</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1"/>
+      <meta charSet="UTF-8" />
       <link href="//fonts.googleapis.com/css?family=Roboto:400,300,500"/>
       <WebpackStyleEntry
         chunkName="client"
