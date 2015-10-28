@@ -1,7 +1,7 @@
 import {
   default as React,
   Component,
-  PropTypes
+  PropTypes,
 } from "react";
 
 import {

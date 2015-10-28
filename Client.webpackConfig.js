@@ -68,7 +68,7 @@ export default {
         loaders: [
           "url-loader?limit=8192",
         ],
-      }
+      },
     ],
   },
   plugins: [
