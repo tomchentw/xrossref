@@ -1,13 +1,27 @@
-import {default as Immutable} from "immutable";
-import {default as Rx} from "rx";
-import {FuncSubject} from "rx-react";
-import {default as moment} from "moment";
+import {
+  default as Immutable,
+} from "immutable";
+
+import {
+  default as Rx,
+} from "rx";
+
+import {
+  FuncSubject,
+} from "rx-react";
+
+import {
+  default as moment,
+} from "moment";
 
 import * as GitHubAPI from "../api/GitHubAPI";
 import * as ParseAPI from "../api/ParseAPI";
-import {default as RepoConstants} from "../constants/RepoConstants";
 
-function getRepoInfo (rawOwnerRepoStr) {
+import {
+  default as RepoConstants,
+} from "../constants/RepoConstants";
+
+function getRepoInfo(rawOwnerRepoStr) {
   const ownerRepoStr = rawOwnerRepoStr.trim();
 
   const repoInfoPms = GitHubAPI.repoInfo(ownerRepoStr);
@@ -21,41 +35,48 @@ function getRepoInfo (rawOwnerRepoStr) {
   const openPRsCount = prsCountsInfo.then(data => data.openPRsCount);
   const closedPRsCount = prsCountsInfo.then(data => data.closedPRsCount);
 
-  return Promise.props({
-    repoInfo: repoInfoPms,
+  return Promise.all([
+    repoInfoPms,
     openIssuesCount,
     closedIssuesCount,
     openPRsCount,
     closedPRsCount,
     lastYearCommitsCount,
-  }).then((promisesMapJS) => {
-    return Immutable.fromJS(promisesMapJS).withMutations(promisesMap => {
-      const repoInfo = promisesMap.get("repoInfo")
+  ]).then((args) => {
+    return Immutable.fromJS({
+      repoInfo: args[0],
+      openIssuesCount: args[1],
+      closedIssuesCount: args[2],
+      openPRsCount: args[3],
+      closedPRsCount: args[4],
+      lastYearCommitsCount: args[5],
+    }).withMutations(promisesMap => {
+      const repoInfo = promisesMap.get(`repoInfo`)
         .groupBy((value, key) => /ed_at/.test(key))
         .reduce((acc, map, isMoment) => {
           return acc.merge(
             isMoment ? map.map(value => moment(value)) : map
           );
         }, new Immutable.Map());
-      const diffOfLastPushDays = repoInfo.get("pushed_at")
-        .diff(moment(), "days");
+      const diffOfLastPushDays = repoInfo.get(`pushed_at`)
+        .diff(moment(), `days`);
 
-      promisesMap.delete("repoInfo")
+      promisesMap.delete(`repoInfo`)
         .merge(repoInfo)
-        .set("daysSinceLastCommit", Math.abs(diffOfLastPushDays));
+        .set(`daysSinceLastCommit`, Math.abs(diffOfLastPushDays));
     });
   });
 }
 
 export default class RepoActions {
-  constructor (updates) {
+  constructor(updates) {
     this.updates = updates;
     //
     this.searchAll = FuncSubject.create();
     this.removeOne = FuncSubject.create();
   }
 
-  register () {
+  register() {
     /**
      * Register our actions against an updates stream
      * each one of our actions will push operation to apply on the model
@@ -68,9 +89,9 @@ export default class RepoActions {
       .subscribe(this.updates);
   }
 
-  applySearchAll () {
-    return this.searchAll.flatMap((terms="") => {
-      return Rx.Observable.from(terms.split(","))
+  applySearchAll() {
+    return this.searchAll.flatMap((terms = ``) => {
+      return Rx.Observable.from(terms.split(`,`))
         .flatMap((rawOwnerRepoStr, index) => {
           return getRepoInfo(rawOwnerRepoStr).then((repoInfo) => {
             return {
@@ -79,7 +100,7 @@ export default class RepoActions {
             };
           });
         })
-        .scan((list, {repoInfo, index}) => {
+        .scan((list, { repoInfo, index }) => {
           return list.set(index, repoInfo);
         }, new Immutable.List())
         .map((repos) => {
@@ -90,16 +111,16 @@ export default class RepoActions {
         })
         .startWith({
           action: RepoConstants.searchAll,
-          payload: {terms},
+          payload: { terms },
         });
     });
   }
 
-  applyRemoveOne () {
+  applyRemoveOne() {
     return this.removeOne.map((id) => {
       return {
         action: RepoConstants.removeOne,
-        payload: {id},
+        payload: { id },
       };
     });
   }

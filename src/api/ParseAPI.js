@@ -1,18 +1,18 @@
-/*global Parse*/
+/* global Parse */
 
-export function issuesCountsInfo (ownerRepoStr) {
-  return Parse.Cloud.run("issuesCountsInfo", {
+export function issuesCountsInfo(ownerRepoStr) {
+  return Parse.Cloud.run(`issuesCountsInfo`, {
     ownerRepoStr,
   });
 }
 
-export function pullRequestsCountsInfo (ownerRepoStr) {
-  return Parse.Cloud.run("PRsCountsInfo", {
+export function pullRequestsCountsInfo(ownerRepoStr) {
+  return Parse.Cloud.run(`PRsCountsInfo`, {
     ownerRepoStr,
   });
 }
 
-export function getTopPaths () {
-  return Parse.Cloud.run("topPaths", {
+export function getTopPaths() {
+  return Parse.Cloud.run(`topPaths`, {
   });
 }

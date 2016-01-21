@@ -1,15 +1,15 @@
-function asJson (res) {
+function asJson(res) {
   return res.json();
 }
 
-export function repoInfo (ownerRepoStr) {
+export function repoInfo(ownerRepoStr) {
   return fetch(
     `https://api.github.com/repos/${ ownerRepoStr }`
   )
     .then(asJson);
 }
 
-export function openIssuesCount (ownerRepoStr) {
+export function openIssuesCount(ownerRepoStr) {
   return fetch(
     `https://api.github.com/search/issues?q=repo:${ ownerRepoStr }+state:open+is:issue`
   )
@@ -17,7 +17,7 @@ export function openIssuesCount (ownerRepoStr) {
     .then(data => data.total_count);
 }
 
-export function closedIssuesCount (ownerRepoStr) {
+export function closedIssuesCount(ownerRepoStr) {
   return fetch(
     `https://api.github.com/search/issues?q=repo:${ ownerRepoStr }+state:closed+is:issue`
   )
@@ -25,7 +25,7 @@ export function closedIssuesCount (ownerRepoStr) {
     .then(data => data.total_count);
 }
 
-export function openPRsCount (ownerRepoStr) {
+export function openPRsCount(ownerRepoStr) {
   return fetch(
     `https://api.github.com/search/issues?q=repo:${ ownerRepoStr }+state:open+is:pr`
   )
@@ -33,7 +33,7 @@ export function openPRsCount (ownerRepoStr) {
     .then(data => data.total_count);
 }
 
-export function closedPRsCount (ownerRepoStr) {
+export function closedPRsCount(ownerRepoStr) {
   return fetch(
     `https://api.github.com/search/issues?q=repo:${ ownerRepoStr }+state:closed+is:pr`
   )
@@ -41,10 +41,10 @@ export function closedPRsCount (ownerRepoStr) {
     .then(data => data.total_count);
 }
 
-export function lastYearCommitsCount (ownerRepoStr) {
+export function lastYearCommitsCount(ownerRepoStr) {
   return fetch(
     `https://api.github.com/repos/${ ownerRepoStr }/stats/participation`
   )
     .then(asJson)
-    .then(({all=[]}) => all.reduce((acc, c) => { return acc + c; }, 0));
+    .then(({ all = [] }) => all.reduce((acc, c) => { return acc + c; }, 0));
 }

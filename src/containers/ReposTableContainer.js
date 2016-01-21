@@ -17,13 +17,13 @@ export default class ReposTableContainer extends Component {
   static contextTypes = {
     repoActions: PropTypes.object,
     repoStore: PropTypes.object,
-  }
+  };
 
   state = {
     windowWidth: 1000,
-  }
+  };
 
-  componentWillMount () {
+  componentWillMount() {
     this.context.repoStore.repos.subscribe((repos) => {
       this.setState({
         repos,
@@ -31,19 +31,19 @@ export default class ReposTableContainer extends Component {
     });
   }
 
-  componentDidMount () {
-    this.resizeDisposable = Rx.Observable.fromEvent(window, "resize")
+  componentDidMount() {
+    this.resizeDisposable = Rx.Observable.fromEvent(window, `resize`)
       .debounce(100)
       .startWith(0)
-      .subscribe(() => this.setState({windowWidth: window.innerWidth}));
+      .subscribe(() => this.setState({ windowWidth: window.innerWidth }));
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     this.resizeDisposable.dispose();
   }
 
-  render () {
-    const {state} = this;
+  render() {
+    const { state } = this;
 
     return (
       <ReposTable

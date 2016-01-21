@@ -3,12 +3,10 @@ import {
 } from "url";
 
 import {
-  default as Rx,
   Observable,
 } from "rx";
 
 import {
-  default as Immutable,
   List,
 } from "immutable";
 
@@ -47,13 +45,13 @@ export default class AppContainer extends Component {
     routeActions: PropTypes.object,
     routeStore: PropTypes.object,
     muiTheme: PropTypes.object,
-  }
+  };
 
   state = {
     topPaths: new List(),
-  }
+  };
 
-  componentDidMount () {
+  componentDidMount() {
     const {
       currentHash,
       topPaths: topPathsObserverable,
@@ -63,37 +61,39 @@ export default class AppContainer extends Component {
       .subscribe((hash) => {
         location.hash = hash;
 
-        ga("send", "pageview", {
-          "page": location.hash,
+        ga(`send`, `pageview`, {
+          page: location.hash,
         });
       });
 
-    Observable.fromEvent(window, "hashchange", event => {
-        return parseUrl(event.newURL).hash.substr(1);
-      })
+    Observable.fromEvent(window, `hashchange`, event => {
+      return parseUrl(event.newURL).hash.substr(1);
+    })
       .merge(currentHash.take(1))
       .map(atob)
       .subscribe(this.context.repoActions.searchAll);
 
     topPathsObserverable.subscribe((topPaths) => {
-      this.setState({topPaths});
+      this.setState({ topPaths });
     });
 
     this.context.routeActions.loadTopPaths();
   }
 
-  render () {
-    const {state} = this;
+  render() {
+    const { state } = this;
 
     return (
       <App
         onHashChange={this.context.routeActions.changeHash}
-        topPaths={state.topPaths}>
+        topPaths={state.topPaths}
+      >
         <GAInitiailizer />
         <GitHubForkRibbon
           position="right"
           color="black"
-          href="https://github.com/tomchentw/xrossref">
+          href="https://github.com/tomchentw/xrossref"
+        >
           Fork me on GitHub
         </GitHubForkRibbon>
         <SearchFieldContainer />

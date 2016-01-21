@@ -1,19 +1,30 @@
-import {default as Immutable} from "immutable";
-import {default as Rx} from "rx";
-import {FuncSubject} from "rx-react";
+import {
+  default as Immutable,
+} from "immutable";
+
+import {
+  default as Rx,
+} from "rx";
+
+import {
+  FuncSubject,
+} from "rx-react";
 
 import * as ParseAPI from "../api/ParseAPI";
-import {default as RouteConstants} from "../constants/RouteConstants";
+
+import {
+  default as RouteConstants,
+} from "../constants/RouteConstants";
 
 export default class RouteActions {
-  constructor (updates) {
+  constructor(updates) {
     this.updates = updates;
     //
     this.changeHash = FuncSubject.create();
     this.loadTopPaths = FuncSubject.create();
   }
 
-  register () {
+  register() {
     /**
      * Register our actions against an updates stream
      * each one of our actions will push operation to apply on the model
@@ -26,26 +37,25 @@ export default class RouteActions {
       .subscribe(this.updates);
   }
 
-  applyChangeHash () {
+  applyChangeHash() {
     return this.changeHash.map((hash) => {
       return {
         action: RouteConstants.changeHash,
-        payload: {hash},
+        payload: { hash },
       };
     });
   }
 
-  applyLoadTopPaths () {
+  applyLoadTopPaths() {
     return this.loadTopPaths.flatMap(() => {
       return ParseAPI.getTopPaths()
         .then(Immutable.fromJS)
         .then((topPaths) => {
           return {
             action: RouteConstants.loadTopPathsSuccess,
-            payload: {topPaths},
+            payload: { topPaths },
           };
         });
     });
   }
 }
-

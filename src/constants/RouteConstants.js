@@ -1,6 +1,8 @@
-import {default as keyMirror} from "react/lib/keyMirror";
+import {
+  default as keyMirror,
+} from "key-mirror";
 
 export default keyMirror({
-  "changeHash": null,
-  "loadTopPathsSuccess": null,
+  changeHash: null,
+  loadTopPathsSuccess: null,
 });

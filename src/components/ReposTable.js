@@ -17,17 +17,17 @@ import {
   default as Timestamp,
 } from "react-time";
 
-require("fixed-data-table/dist/fixed-data-table-base.css");
-require("fixed-data-table/dist/fixed-data-table-style.css");
+import "fixed-data-table/dist/fixed-data-table-base.css";
+import "fixed-data-table/dist/fixed-data-table-style.css";
 
-/*eslint-disable no-unused-vars, no-undef*/
-function immutableCellDataGetter (
+/* eslint-disable no-unused-vars, no-undef */
+function immutableCellDataGetter(
   cellDataKey: string,
   rowData: object
 ): any {
   return rowData.get(cellDataKey);
 }
-/*eslint-enable no-unused-vars, no-undef*/
+/* eslint-enable no-unused-vars, no-undef */
 
 export default class ReposTable extends Component {
 
@@ -35,10 +35,14 @@ export default class ReposTable extends Component {
     windowWidth: PropTypes.number.isRequired,
     repos: PropTypes.object.isRequired,
     onRepoRemove: PropTypes.func.isRequired,
+  };
+
+  handleRepoRemove(cellData) {
+    this.props.onRepoRemove(cellData);
   }
 
-  /*eslint-disable no-unused-vars, no-undef*/
-  renderRemoveCell (
+  /* eslint-disable no-unused-vars, no-undef */
+  renderRemoveCell(
     cellData: any,
     cellDataKey: string,
     rowData: object,
@@ -46,15 +50,17 @@ export default class ReposTable extends Component {
     columnData: any,
     width: number
   ): ?$jsx {
+    const handleClick = this.handleRepoRemove.bind(this, cellData);
+
     return (
       <Icon
         name="times"
-        onClick={() => this.props.onRepoRemove(cellData)}
+        onClick={handleClick}
       />
     );
   }
 
-  renderDateCell (
+  renderDateCell(
     cellData: any,
     cellDataKey: string,
     rowData: object,
@@ -66,11 +72,11 @@ export default class ReposTable extends Component {
       <Timestamp value={cellData} format="YYYY/MM/DD" />
     );
   }
-  /*eslint-enable no-unused-vars, no-undef*/
+  /* eslint-enable no-unused-vars, no-undef */
 
-  render () {
-    const {props} = this;
-    const {repos} = props;
+  render() {
+    const { props } = this;
+    const { repos } = props;
     const rowGetter = (rowIndex) => repos.get(rowIndex);
 
     return (
@@ -80,13 +86,14 @@ export default class ReposTable extends Component {
         rowsCount={repos.count()}
         width={props.windowWidth}
         height={600}
-        headerHeight={50}>
+        headerHeight={50}
+      >
         <Column
           label=""
           width={30}
           dataKey="id"
           cellDataGetter={immutableCellDataGetter}
-          cellRenderer={this.renderRemoveCell}
+          cellRenderer={::this.renderRemoveCell}
         />
         <Column
           label="Name"

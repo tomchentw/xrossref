@@ -14,13 +14,13 @@ export default class SearchFieldContainer extends Component {
     muiTheme: PropTypes.object,
     repoActions: PropTypes.object,
     routeStore: PropTypes.object,
-  }
+  };
 
   state = {
-  }
+  };
 
-  componentDidMount () {
-    const {currentHash} = this.context.routeStore;
+  componentDidMount() {
+    const { currentHash } = this.context.routeStore;
     currentHash
       .map(atob)
       .subscribe(searchTerm => {
@@ -28,28 +28,29 @@ export default class SearchFieldContainer extends Component {
       });
   }
 
-  handleChange = () => {
+  handleChange() {
     this.setState({
       searchTerm: this.refs.searchField.getValue(),
     });
   }
 
-  handleEnterKeyDown = () => {
+  handleEnterKeyDown() {
     this.context.repoActions.searchAll(this.state.searchTerm);
   }
 
-  render () {
-    const {state} = this;
+  render() {
+    const { state } = this;
 
     return (
       <TextField
         ref="searchField"
-        style={{width: "100%"}}
+        style={{ width: `100%` }}
         hintText="Enter GitHub repo (with author's name)"
         value={state.searchTerm}
-        onChange={this.handleChange}
-        onEnterKeyDown={this.handleEnterKeyDown}
-        floatingLabelText="Compare several repos with ," />
+        onChange={::this.handleChange}
+        onEnterKeyDown={::this.handleEnterKeyDown}
+        floatingLabelText="Compare several repos with ,"
+      />
     );
   }
 }

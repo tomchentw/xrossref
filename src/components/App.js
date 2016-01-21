@@ -9,12 +9,18 @@ import {
 } from "react";
 
 import {
-  AppBar,
-  LeftNav,
-  MenuItem,
-} from "material-ui";
+  default as AppBar,
+} from "material-ui/lib/app-bar";
 
-require("normalize.css");
+import {
+  default as LeftNav,
+} from "material-ui/lib/left-nav";
+
+import {
+  default as MenuItem,
+} from "material-ui/lib/menu/menu-item";
+
+import "normalize.css";
 
 const HASH_REGEX = /\/?#(.+)/;
 const REPO_NAME_REGEX = /\/(\S+)/;
@@ -25,20 +31,20 @@ export default class App extends Component {
     onHashChange: PropTypes.func.isRequired,
     topPaths: PropTypes.object.isRequired,
     children: PropTypes.node.isRequired,
-  }
+  };
 
-  getMenuItemsFromTopPaths (topPaths) {
+  getMenuItemsFromTopPaths(topPaths) {
     return new Immutable.List([
       {
         type: MenuItem.Types.LINK,
-        payload: "https://github.com/tomchentw/xrossref#credits",
-        text: "Credits",
+        payload: `https://github.com/tomchentw/xrossref#credits`,
+        text: `Credits`,
       },
-      { type: MenuItem.Types.SUBHEADER, text: "Top Paths" },
+      { type: MenuItem.Types.SUBHEADER, text: `Top Paths` },
     ]).concat(topPaths.map(topPath => {
       if (!HASH_REGEX.test(topPath)) {
         return {
-          hash: "",
+          hash: ``,
           text: topPath,
         };
       }
@@ -54,7 +60,7 @@ export default class App extends Component {
           }
         })
         // [react, angular.js]
-        .reduce((acc, name, index, {length: querySize}) => {
+        .reduce((acc, name, index, { length: querySize }) => {
           const MAX_NAMES_LENGTH = 22;
           const stringSize = (count, str) => count + str.length + 2;
           const namesWithinLength = MAX_NAMES_LENGTH > acc.reduce(stringSize, 0);
@@ -63,26 +69,30 @@ export default class App extends Component {
             acc.push(name); // [react, angular.js]
           }
           if (index + 1 === querySize) {
-            const namesStr = acc.join(", ").slice(0, MAX_NAMES_LENGTH);
-            acc = namesWithinLength ? namesStr : `${ namesStr } ... (${ querySize })`;
+            const namesStr = acc.join(`, `).slice(0, MAX_NAMES_LENGTH);
+            return namesWithinLength ? namesStr : `${ namesStr } ... (${ querySize })`;
             // "react, angular ... (2)"
           }
           return acc;
         }, []);
 
       return {
-        hash: hash,
-        text: text,
+        hash,
+        text,
       };
     })).toJS();
   }
 
-  handleLeftNavChange = (e, key, payload) => {
+  handleLeftNavChange(e, key, payload) {
     this.props.onHashChange(payload.hash);
   }
 
-  render () {
-    const {props} = this;
+  handleLeftIconButtonTouchTap() {
+    this.refs.leftNav.toggle();
+  }
+
+  render() {
+    const { props } = this;
     const menuItems = this.getMenuItemsFromTopPaths(props.topPaths);
 
     return (
@@ -90,13 +100,13 @@ export default class App extends Component {
         <AppBar
           title="Xrossref"
           iconClassNameRight="muidocs-icon-navigation-expand-more"
-          onLeftIconButtonTouchTap={() => this.refs.leftNav.toggle()}
+          onLeftIconButtonTouchTap={::this.handleLeftIconButtonTouchTap}
         />
         <LeftNav ref="leftNav"
           docked={false}
           isInitiallyOpen={false}
           menuItems={menuItems}
-          onChange={this.handleLeftNavChange}
+          onChange={::this.handleLeftNavChange}
         />
         {props.children}
       </div>
