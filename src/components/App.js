@@ -70,7 +70,7 @@ export default class App extends Component {
           }
           if (index + 1 === querySize) {
             const namesStr = acc.join(`, `).slice(0, MAX_NAMES_LENGTH);
-            return namesWithinLength ? namesStr : `${ namesStr } ... (${ querySize })`;
+            return namesWithinLength ? namesStr : `${namesStr} ... (${querySize})`;
             // "react, angular ... (2)"
           }
           return acc;
@@ -102,7 +102,8 @@ export default class App extends Component {
           iconClassNameRight="muidocs-icon-navigation-expand-more"
           onLeftIconButtonTouchTap={::this.handleLeftIconButtonTouchTap}
         />
-        <LeftNav ref="leftNav"
+        <LeftNav
+          ref="leftNav"
           docked={false}
           isInitiallyOpen={false}
           menuItems={menuItems}

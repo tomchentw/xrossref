@@ -31,22 +31,20 @@ export default class RepoStore {
   handleSearchAllSuccess() {
     return this.updates
       .filter(({ action }) => RepoConstants.searchAllSuccess === action)
-      .flatMap(({ payload }) => {
-        return this.repos.take(1).map(() => {
-          return payload;
-        });
-      });
+      .flatMap(({ payload }) => (
+        this.repos.take(1).map(() => payload)
+      ));
   }
 
   hanlleRemoveOne() {
     return this.updates
       .filter(({ action }) => RepoConstants.removeOne === action)
-      .flatMap(({ payload: { id } }) => {
-        return this.repos.take(1).map(repos => {
-          return repos.delete(
+      .flatMap(({ payload: { id } }) => (
+        this.repos.take(1).map(repos => (
+          repos.delete(
             repos.findIndex(repo => id === repo.id)
-          );
-        });
-      });
+          )
+        ))
+      ));
   }
 }

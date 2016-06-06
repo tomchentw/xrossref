@@ -42,8 +42,8 @@ function getRepoInfo(rawOwnerRepoStr) {
     openPRsCount,
     closedPRsCount,
     lastYearCommitsCount,
-  ]).then((args) => {
-    return Immutable.fromJS({
+  ]).then((args) => (
+    Immutable.fromJS({
       repoInfo: args[0],
       openIssuesCount: args[1],
       closedIssuesCount: args[2],
@@ -53,19 +53,19 @@ function getRepoInfo(rawOwnerRepoStr) {
     }).withMutations(promisesMap => {
       const repoInfo = promisesMap.get(`repoInfo`)
         .groupBy((value, key) => /ed_at/.test(key))
-        .reduce((acc, map, isMoment) => {
-          return acc.merge(
+        .reduce((acc, map, isMoment) => (
+          acc.merge(
             isMoment ? map.map(value => moment(value)) : map
-          );
-        }, new Immutable.Map());
+          )
+        ), new Immutable.Map());
       const diffOfLastPushDays = repoInfo.get(`pushed_at`)
         .diff(moment(), `days`);
 
       promisesMap.delete(`repoInfo`)
         .merge(repoInfo)
         .set(`daysSinceLastCommit`, Math.abs(diffOfLastPushDays));
-    });
-  });
+    })
+  ));
 }
 
 export default class RepoActions {
@@ -90,38 +90,33 @@ export default class RepoActions {
   }
 
   applySearchAll() {
-    return this.searchAll.flatMap((terms = ``) => {
-      return Rx.Observable.from(terms.split(`,`))
-        .flatMap((rawOwnerRepoStr, index) => {
-          return getRepoInfo(rawOwnerRepoStr).then((repoInfo) => {
-            return {
+    return this.searchAll.flatMap((terms = ``) => (
+      Rx.Observable.from(terms.split(`,`))
+        .flatMap((rawOwnerRepoStr, index) => (
+          getRepoInfo(rawOwnerRepoStr)
+            .then((repoInfo) => ({
               repoInfo,
               index,
-            };
-          });
-        })
-        .scan((list, { repoInfo, index }) => {
-          return list.set(index, repoInfo);
-        }, new Immutable.List())
-        .map((repos) => {
-          return {
-            action: RepoConstants.searchAllSuccess,
-            payload: repos,
-          };
-        })
+            }))
+        ))
+        .scan((list, { repoInfo, index }) => (
+          list.set(index, repoInfo)
+        ), new Immutable.List())
+        .map((repos) => ({
+          action: RepoConstants.searchAllSuccess,
+          payload: repos,
+        }))
         .startWith({
           action: RepoConstants.searchAll,
           payload: { terms },
-        });
-    });
+        })
+    ));
   }
 
   applyRemoveOne() {
-    return this.removeOne.map((id) => {
-      return {
-        action: RepoConstants.removeOne,
-        payload: { id },
-      };
-    });
+    return this.removeOne.map((id) => ({
+      action: RepoConstants.removeOne,
+      payload: { id },
+    }));
   }
 }

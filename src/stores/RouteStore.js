@@ -59,27 +59,23 @@ export default class RouteStore {
   hanlleRemoveOne() {
     return this.updates
       .filter(({ action }) => RepoConstants.removeOne === action)
-      .flatMap(() => {
-        return this.storesMap.repoStore.repos.take(1).map((repos) => {
-          return repos.map(repo => repo.get(`full_name`)).join(`, `);
-        });
-      })
+      .flatMap(() => (
+        this.storesMap.repoStore.repos.take(1).map((repos) => (
+          repos.map(repo => repo.get(`full_name`)).join(`, `)
+        ))
+      ))
       .map(btoa);
   }
 
   handleChangeHash() {
     return this.updates
       .filter(({ action }) => RouteConstants.changeHash === action)
-      .map(({ payload: { hash } }) => {
-        return hash;
-      });
+      .map(({ payload: { hash } }) => hash);
   }
 
   handleLoadTopPathsSuccess() {
     return this.updates
       .filter(({ action }) => RouteConstants.loadTopPathsSuccess === action)
-      .map(({ payload: { topPaths } }) => {
-        return topPaths;
-      });
+      .map(({ payload: { topPaths } }) => topPaths);
   }
 }

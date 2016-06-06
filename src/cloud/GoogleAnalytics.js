@@ -41,7 +41,7 @@ function convertGAResultToSortedList({ rows }) {
     .toJS();
 }
 
-Parse.Cloud.define(`topPaths`, function topPaths(request, response) {
+Parse.Cloud.define(`topPaths`, (request, response) => {
   Parse.Cloud.useMasterKey();
 
   new Parse.Query(`Secret`)
@@ -51,8 +51,8 @@ Parse.Cloud.define(`topPaths`, function topPaths(request, response) {
       const encodedClaim = JSON.stringify(getClaim());
       return jws.JWS.sign(null, ENCODED_HEADER, encodedClaim, key);
     })
-    .then(jwt => {
-      return Parse.Cloud.httpRequest({
+    .then(jwt => (
+      Parse.Cloud.httpRequest({
         url: `https://www.googleapis.com/oauth2/v3/token`,
         method: `POST`,
         body: {
@@ -61,16 +61,16 @@ Parse.Cloud.define(`topPaths`, function topPaths(request, response) {
         },
       })
         .then(parseJsonResponse, parseJsonResponse)
-        .then(({ access_token }) => { return access_token; });
-    })
-    .then(access_token => {
-      return Parse.Cloud.httpRequest({
+        .then(({ access_token }) => access_token)
+    ))
+    .then(access_token => (
+      Parse.Cloud.httpRequest({
         url: `https://www.googleapis.com/analytics/v3/data/ga`,
         headers: {
           "Content-Type": `application/json;charset=utf-8`,
         },
         params: {
-          ids: `ga:${ process.env.GOOGLE_ANALYTICS_ID }`,
+          ids: `ga:${process.env.GOOGLE_ANALYTICS_ID}`,
           "start-date": PROJECT_FIRST_RELEASE_DATE,
           "end-date": `yesterday`,
           metrics: `ga:sessions`,
@@ -79,7 +79,7 @@ Parse.Cloud.define(`topPaths`, function topPaths(request, response) {
         },
       })
         .then(parseJsonResponse, parseJsonResponse)
-        .then(convertGAResultToSortedList);
-    })
+        .then(convertGAResultToSortedList)
+    ))
     .then(response.success, response.error);
 });

@@ -66,9 +66,9 @@ export default class AppContainer extends Component {
         });
       });
 
-    Observable.fromEvent(window, `hashchange`, event => {
-      return parseUrl(event.newURL).hash.substr(1);
-    })
+    Observable.fromEvent(window, `hashchange`, event => (
+      parseUrl(event.newURL).hash.substr(1)
+    ))
       .merge(currentHash.take(1))
       .map(atob)
       .subscribe(this.context.repoActions.searchAll);
