@@ -21,7 +21,6 @@ export default (
         chunkFilepath="../src/client.js"
         configFilepath="../Client.webpackConfig.js"
       />
-      <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing" />
     </head>
     <body>
       <ReactRenderToStringEntry
