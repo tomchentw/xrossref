@@ -11,7 +11,6 @@ import {
 export default class SearchFieldContainer extends Component {
 
   static contextTypes = {
-    muiTheme: PropTypes.object,
     repoActions: PropTypes.object,
     routeStore: PropTypes.object,
   };
@@ -28,9 +27,9 @@ export default class SearchFieldContainer extends Component {
       });
   }
 
-  handleChange() {
+  handleChange(event) {
     this.setState({
-      searchTerm: this.refs.searchField.getValue(),
+      searchTerm: event.target.value,
     });
   }
 
@@ -43,7 +42,6 @@ export default class SearchFieldContainer extends Component {
 
     return (
       <TextField
-        ref="searchField"
         style={{ width: `100%` }}
         hintText="Enter GitHub repo (with author's name)"
         value={state.searchTerm}

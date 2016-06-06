@@ -18,7 +18,7 @@ import {
 
 import {
   default as MenuItem,
-} from "material-ui/lib/menu/menu-item";
+} from "material-ui/lib/menus/menu-item";
 
 import "normalize.css";
 
@@ -33,20 +33,19 @@ export default class App extends Component {
     children: PropTypes.node.isRequired,
   };
 
+  state = {
+    isLeftNavOpen: false,
+  };
+
   getMenuItemsFromTopPaths(topPaths) {
-    return new Immutable.List([
-      {
-        type: MenuItem.Types.LINK,
-        payload: `https://github.com/tomchentw/xrossref#credits`,
-        text: `Credits`,
-      },
-      { type: MenuItem.Types.SUBHEADER, text: `Top Paths` },
-    ]).concat(topPaths.map(topPath => {
+    return topPaths.map(topPath => {
       if (!HASH_REGEX.test(topPath)) {
-        return {
-          hash: ``,
-          text: topPath,
-        };
+        return (
+          <MenuItem
+            key={topPath}
+            primaryText={topPath}
+          />
+        );
       }
       // /#ZmFjZWJvb2svcmVhY3QsIGFuZ3VsYXIvYW5ndWxhci5qcw==
       const hash = topPath.match(/\/?#(.+)/)[1]; // ZmFjZWJvb2svcmVhY3QsIGFuZ3VsYXIvYW5ndWxhci5qcw==
@@ -76,24 +75,28 @@ export default class App extends Component {
           return acc;
         }, []);
 
-      return {
-        hash,
-        text,
-      };
-    })).toJS();
+      return (
+        <MenuItem
+          key={hash}
+          value={hash}
+          primaryText={text}
+          onTouchTap={::this.handleMenuItemTouchTap}
+        />
+      );
+    }).toJS();
   }
 
-  handleLeftNavChange(e, key, payload) {
-    this.props.onHashChange(payload.hash);
+  handleMenuItemTouchTap(e) {
+    console.log(e.target.value)
+    this.props.onHashChange(e.target.value);
   }
 
   handleLeftIconButtonTouchTap() {
-    this.refs.leftNav.toggle();
+    this.setState(state => ({isLeftNavOpen: !state.isLeftNavOpen}));
   }
 
   render() {
     const { props } = this;
-    const menuItems = this.getMenuItemsFromTopPaths(props.topPaths);
 
     return (
       <div id="react-root">
@@ -103,12 +106,17 @@ export default class App extends Component {
           onLeftIconButtonTouchTap={::this.handleLeftIconButtonTouchTap}
         />
         <LeftNav
-          ref="leftNav"
           docked={false}
-          isInitiallyOpen={false}
-          menuItems={menuItems}
-          onChange={::this.handleLeftNavChange}
-        />
+          open={this.state.isLeftNavOpen}
+        >
+          <MenuItem>
+            <a href="https://github.com/tomchentw/xrossref#credits">Credits</a>
+          </MenuItem>
+          <MenuItem
+            primaryText="Top Paths"
+            menuItems={this.getMenuItemsFromTopPaths(props.topPaths)}
+          />
+        </LeftNav>
         {props.children}
       </div>
     );

@@ -9,10 +9,6 @@ import {
 } from "rx";
 
 import {
-  Styles,
-} from "material-ui";
-
-import {
   default as RepoActions,
 } from "./actions/RepoActions";
 
@@ -32,8 +28,6 @@ import {
   default as AppContainer,
 } from "./containers/AppContainer";
 
-const { ThemeManager, Colors } = Styles;
-
 const CURRENT_HASH = (
   typeof window !== `undefined` && location.hash ?
   location.hash.substr(1) :
@@ -52,22 +46,16 @@ export default class ReactRoot extends Component {
 
   static childContextTypes = {
     ...fluxContextTypes,
-    muiTheme: PropTypes.object,
   };
 
   getChildContext() {
     return {
       ...this.fluxContext,
-      muiTheme: this.themeManager.getCurrentTheme(),
     };
   }
 
   componentWillMount() {
     this.createFluxContext();
-    this.themeManager = new ThemeManager();
-    this.themeManager.setPalette({
-      accent1Color: Colors.deepOrange500,
-    });
   }
 
   componentWillUnmount() {
