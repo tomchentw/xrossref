@@ -13,15 +13,14 @@ export default (
   <html>
     <head>
       <title>Xrossref | tomchentw</title>
-      <meta name="viewport" content="width=device-width, initial-scale=1"/>
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta charSet="UTF-8" />
-      <link href="//fonts.googleapis.com/css?family=Roboto:400,300,500"/>
+      <link href="//fonts.googleapis.com/css?family=Roboto:400,300,500" />
       <WebpackStyleEntry
         chunkName="client"
         chunkFilepath="../src/client.js"
         configFilepath="../Client.webpackConfig.js"
       />
-      <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing" />
     </head>
     <body>
       <ReactRenderToStringEntry

@@ -24,7 +24,7 @@ if (process.env.NODE_ENV === `production`) {
 
 const externals = Object.keys(require(`./package.json`).dependencies)
   .filter(key => [`react-fa`, `fixed-data-table`].indexOf(key) === -1)
-  .map(key => new RegExp(`^${ key }(\S+)?\$`));
+  .map(key => new RegExp(`^${key}(\S+)?\$`));
 
 export default {
   output: {

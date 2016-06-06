@@ -38,24 +38,20 @@ export default class RouteActions {
   }
 
   applyChangeHash() {
-    return this.changeHash.map((hash) => {
-      return {
-        action: RouteConstants.changeHash,
-        payload: { hash },
-      };
-    });
+    return this.changeHash.map((hash) => ({
+      action: RouteConstants.changeHash,
+      payload: { hash },
+    }));
   }
 
   applyLoadTopPaths() {
-    return this.loadTopPaths.flatMap(() => {
-      return ParseAPI.getTopPaths()
+    return this.loadTopPaths.flatMap(() => (
+      ParseAPI.getTopPaths()
         .then(Immutable.fromJS)
-        .then((topPaths) => {
-          return {
-            action: RouteConstants.loadTopPathsSuccess,
-            payload: { topPaths },
-          };
-        });
-    });
+        .then((topPaths) => ({
+          action: RouteConstants.loadTopPathsSuccess,
+          payload: { topPaths },
+        }))
+    ));
   }
 }

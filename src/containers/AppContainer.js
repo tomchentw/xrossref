@@ -17,6 +17,14 @@ import {
 } from "react";
 
 import {
+  default as ThemeManager,
+} from 'material-ui/lib/styles/theme-manager';
+
+import {
+  default as LightRawTheme,
+} from 'material-ui/lib/styles/raw-themes/light-raw-theme';
+
+import {
   default as ga,
   Initializer as GAInitiailizer,
 } from "react-google-analytics";
@@ -44,12 +52,21 @@ export default class AppContainer extends Component {
     repoStore: PropTypes.object,
     routeActions: PropTypes.object,
     routeStore: PropTypes.object,
-    muiTheme: PropTypes.object,
+  };
+
+  static childContextTypes = {
+    muiTheme: React.PropTypes.object,
   };
 
   state = {
     topPaths: new List(),
   };
+
+  getChildContext() {
+    return {
+      muiTheme: ThemeManager.getMuiTheme(LightRawTheme),
+    };
+  }
 
   componentDidMount() {
     const {
@@ -66,9 +83,9 @@ export default class AppContainer extends Component {
         });
       });
 
-    Observable.fromEvent(window, `hashchange`, event => {
-      return parseUrl(event.newURL).hash.substr(1);
-    })
+    Observable.fromEvent(window, `hashchange`, event => (
+      parseUrl(event.newURL).hash.substr(1)
+    ))
       .merge(currentHash.take(1))
       .map(atob)
       .subscribe(this.context.repoActions.searchAll);
